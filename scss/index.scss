@@ -88,9 +88,9 @@ $jigsass-direction: ltr !default;
   $match-case: true
 ) {
   // Coerce arguments into strings
-  $string: quote($string);
-  $surstr: quote($substr);
-  $new-surstr: quote($new-substr);
+  $string: inspect($string);
+  $surstr: inspect($substr);
+  $new-surstr: inspect($new-substr);
 
   @if ($string == $substr) { @return $new-substr; }
 
@@ -117,10 +117,11 @@ $jigsass-direction: ltr !default;
       );
     }
 
-    @return unquote($prefix + ($new-substr or '') + $suffix);
+    $_string: $prefix + ($new-substr or '') + $suffix;
+    @return unquote(inspect($_string));
   }
 
-  @return unquote($string);
+  @return unquote(inspect($string));
 }
 
 
