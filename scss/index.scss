@@ -24,7 +24,12 @@
 // Variables
 // -------------------------------------
 
-//
+/// The direction in which styles
+/// should be outputted
+/// ---
+/// @type String
+/// ---
+$jigsass-direction: ltr !default;
 
 
 
@@ -34,7 +39,26 @@
 // Functions
 // -------------------------------------
 
-//
+/// Translate `start` or `end` into either
+/// `left` or `right`, depending on the current
+/// value of `$jigsass-direction`;
+/// ---
+/// @param {String} $side
+///   The side to translate into `left` or `right`. Can be `start` or `end`.
+/// ---
+/// @retrun {String} - The translated value of `$side`. `left` or `right`
+/// ---
+@function _jigsass-get-side($side) {
+  @if (not index(start end, to-lower-case($side))) {
+    @error '_jigsass-get-side: `$side` may only be `start` or `end`, but you passed `#{$side}`';
+  }
+
+  @if ($jigsass-direction == to-lower-case(ltr)) {
+    @return if(to-lower-case($side) == start, left, right);
+  }
+
+  @return if(to-lower-case($side) == start, right, left);
+}
 
 
 
