@@ -120,6 +120,106 @@ describe('jigsass-tools-bidi', () => {
   });
 
 
+  describe('_jigsass-bidi-simple [Mixin]', () => {
+    describe('LTR', () => {
+      describe('Property', () => {
+        it('Does nothing when no action is required', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('clear', 'both', false)
+            .equals('clear:both');
+        });
+
+        it('Correctly converts `start` in the `$property` argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('margin-start', '6px', false)
+            .equals('margin-left:6px');
+        });
+
+        it('Correctly converts `end` in the `$property` argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('border-top-end-radius', '6px', false)
+            .equals('border-top-right-radius:6px');
+        });
+
+        it('Correctly converts values to rem units', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('border-top-end-radius', '6px', true)
+            .equals('border-top-right-radius:1rem');
+        });
+      });
+
+      describe('Values', () => {
+        it('Does nothing when no action is required', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('clear', 'both', false)
+            .equals('clear:both');
+        });
+
+        it('Correctly converts `$values` property when it is set to `start`', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('float', 'start', false)
+            .equals('float:left');
+        });
+
+        it('Correctly converts `$values` property when it is set to `end`', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('float', 'end', false)
+            .equals('float:right');
+        });
+      });
+    });
+
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } });
+
+      describe('Property', () => {
+        it('Does nothing when no action is required', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('clear', 'both', false)
+            .equals('clear:both');
+        });
+
+        it('Correctly converts `start` in the `$property` argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('margin-start', '6px', false)
+            .equals('margin-right:6px');
+        });
+
+        it('Correctly converts `end` in the `$property` argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('border-top-end-radius', '6px', false)
+            .equals('border-top-left-radius:6px');
+        });
+
+        it('Correctly converts values to rem units', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('border-top-end-radius', '6px', true)
+            .equals('border-top-left-radius:1rem');
+        });
+      });
+
+      describe('Values', () => {
+        it('Does nothing when no action is required', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('clear', 'both', false)
+            .equals('clear:both');
+        });
+
+        it('Correctly converts `$values` property when it is set to `start`', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('float', 'start', false)
+            .equals('float:right');
+        });
+
+        it('Correctly converts `$values` property when it is set to `end`', () => {
+          sassaby.includedMixin('_jigsass-bidi-simple')
+            .calledWithArgs('float', 'end', false)
+            .equals('float:left');
+        });
+      });
+    });
+  });
+
   describe('_jigsass-bidi-bdrs [Mixin]', () => {
     describe('LTR', () => {
       it('prints single value when called with a single value', () => {

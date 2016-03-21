@@ -199,14 +199,6 @@ $jigsass-direction: ltr !default;
 // Mixins
 // -------------------------------------
 
-@mixin jigsass-bidi($property, $values, $bp: false, $rem: $jigsass-default-unit == rem) {
-  @f (not index(ltr rtl, $jigsass-direction)) {
-    @error 'jigsass-bidi: `$jigsass-direction` must be either `ltr` or `rtl`, ' +
-      'but it is set to #{$jigsass-direction} (When setting #{$property}, #{$values}).';
-  }
-
-  $value: if(index(start end, $value), _jigsass-get-side($value), $value);
-}
 
 
 
@@ -216,8 +208,32 @@ $jigsass-direction: ltr !default;
 // Helper Mixins
 // -------------------------------------
 
+@mixin _jigsass-bidi-simple($property, $values, $rem) {
+  $_rtl: $jigsass-direction == rtl;
+
+  $_prop: if(
+    str-index($property, start),
+    jigsass-str-replace($property, start, if($_rtl, right, left), $match-case: false),
+    if(
+      str-index($property, end),
+      jigsass-str-replace($property, end, if($_rtl, left, right), $match-case: false),
+      $property
+    )
+  );
+  $_value: if(index(start end, $values), _jigsass-get-side($values), $values);
+
+  @if ($rem) { @include jigsass-rem($_prop, $_value); }
+
+  @else { #{$_prop}: $_value; }
+}
+
+
+/// Direction agnostic border radius
 /// @param {List} $values
-///   primary and optionally secondary values for border-radius.
+///   Instead of being processed left to right, values are
+///   processed `top-start`, `top-end`, `bottom-end`, `bottom-start`.
+///   with support for primary and optionally secondary border-radius
+///   values for border-radius.
 ///
 ///   If secondary values are passed as well, one set of values
 ///   must be a `list` itself.
@@ -225,6 +241,7 @@ $jigsass-direction: ltr !default;
 ///   `border-radius: 6px / 12px`), the value must be coerced
 ///   into a list (e.g `$values: 6px (12px,)`)
 /// @param {Boolean} $rem
+///   Determines if pixel values will be converted into rems.
 /// ---
 @mixin _jigsass-bidi-bdrs($values, $rem) {
   $_parssed-values: _jigsass-parse-bdrs-values($values);
