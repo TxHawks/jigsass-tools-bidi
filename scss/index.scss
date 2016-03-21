@@ -61,6 +61,64 @@ $jigsass-direction: ltr !default;
 }
 
 
+/// Replace a substring inside a string
+/// ---
+/// @param {String} $string
+///   The string to search in
+/// @param {String} $substr
+///   The substring to search for
+/// @param {String} $new-substr
+///   The substring to replace `$substr` with
+/// @param {Boolean} $replace-all
+///   Replace all instances of `$substr`, or just the first
+/// @param {Boolean} $match-case
+/// ---
+/// @return {String} The replaced string
+/// ---
+@function jigsass-str-replace(
+  $string,
+  $substr,
+  $new-substr: null,
+  $replace-all: true,
+  $match-case: true
+) {
+  // Coerce arguments into strings
+  $string: quote($string);
+  $surstr: quote($substr);
+  $new-surstr: quote($new-substr);
+
+  @if ($string == $substr) { @return $new-substr; }
+
+  $sub-index: if(
+    $match-case,
+    str-index($string, $substr),
+    str-index(to-lower-case($string), $substr)
+  );
+
+  @if ($sub-index) {
+    $sub-end-index: $sub-index + str-length($substr);
+
+    $prefix: if($sub-index == 1, '', str-slice($string, 1, ($sub-index - 1)));
+    $suffix: str-slice($string, $sub-end-index);
+
+    // Recurse if replace all.
+    @if ($replace-all and str-index($suffix, $substr)) {
+      $suffix: jigsass-str-replace(
+        $suffix,
+        $substr,
+        $new-substr,
+        true,
+        $match-case
+      );
+    }
+
+    @return unquote($prefix + ($new-substr or '') + $suffix);
+  }
+
+  @return unquote($string);
+}
+
+
 
 
 
