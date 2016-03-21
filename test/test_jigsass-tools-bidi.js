@@ -41,4 +41,42 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+
+  describe('jigsass-str-replace [Function]', () => {
+    it('Replaces a substring in the middle of a sring', () => {
+      sassaby.func('jigsass-str-replace')
+        .calledWithArgs('A string to search in', 'to', 'we can')
+        .equals('A string we can search in');
+    });
+
+    it('Replaces a substring at he beginning of a sring', () => {
+      sassaby.func('jigsass-str-replace')
+        .calledWithArgs('"foo bar baz"', 'foo', 'quax')
+        .equals('quax bar baz');
+    });
+
+    it('Replace all instances of the substring by default', () => {
+      sassaby.func('jigsass-str-replace')
+        .calledWithArgs('foo bar baz quax foo bar norf', 'bar', 'frog')
+        .equals('foo frog baz quax foo frog norf');
+    });
+
+    it('Can replace only a single instance of the substring', () => {
+      sassaby.func('jigsass-str-replace')
+        .calledWithArgs('foo bar baz quax foo bar norf', 'bar', 'frog', '$replace-all: false')
+        .equals('foo frog baz quax foo bar norf');
+    });
+
+    it('Is case sensitive', () => {
+      sassaby.func('jigsass-str-replace')
+        .calledWithArgs('foo Bar baz', 'bar', 'quax')
+        .equals('foo Bar baz');
+    });
+
+    it('Can ignore case diffrences', () => {
+      sassaby.func('jigsass-str-replace')
+        .calledWithArgs('foo Bar baz', 'bar', 'Quax', '$match-case: false')
+        .equals('foo Quax baz');
+    });
+  });
 });
