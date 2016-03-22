@@ -209,6 +209,8 @@ $jigsass-direction: ltr !default;
 // Helper Mixins
 // -------------------------------------
 
+/// Helper for simple text replacements
+/// ---
 @mixin _jigsass-bidi-simple($property, $values, $rem) {
   $_rtl: $jigsass-direction == rtl;
 
@@ -226,6 +228,20 @@ $jigsass-direction: ltr !default;
   @if ($rem) { @include jigsass-rem($_prop, $_value); }
 
   @else { #{$_prop}: $_value; }
+}
+
+/// Helper to interpret lists of four values as
+/// `top-end-bottom-start` instead of 'top-right-bottom-left'.
+@mixin _jigsass-bidi-sides($property, $values, $rem) {
+  $_rtl: $jigsass-direction == rtl;
+
+  @if ((length($values) == 4) and $_rtl) {
+    $values: nth($values, 1) nth($values, 4) nth($values, 3) nth($values, 2);
+  }
+
+  @if ($rem) { @include jigsass-rem($property, $values); }
+
+  @else { #{$property}: $values; }
 }
 
 

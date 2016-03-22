@@ -354,4 +354,72 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+
+  describe('_jigsass-bidi-sides [Mixin]', () => {
+    describe('LTR', () => {
+      it('Does not change order when one values is passed in ltr mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px', false)
+          .equals('margin: 12px');
+      });
+
+      it('Does not change order when two values are passed in ltr mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 8px', false)
+          .equals('margin: 12px 8px');
+      });
+
+      it('Does not change order when three values are passed in ltr mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 8px 10px', false)
+          .equals('margin: 12px 8px 10px');
+      });
+
+      it('Does not change order when four values are passed in ltr mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 8px 10px 6px', false)
+          .equals('margin: 12px 8px 10px 6px');
+      });
+
+      it ('Can generate values in rem', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 18px 3px 6px', true)
+          .equals('margin: 2rem 3rem .5rem 1rem');
+      });
+    });
+
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      it('Does not change order when one values is passed in rtl mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px', false)
+          .equals('margin: 12px');
+      });
+
+      it('Does not change order when two values are passed in rtl mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 8px', false)
+          .equals('margin: 12px 8px');
+      });
+
+      it('Does not change order when three values are passed in rtl mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 8px 10px', false)
+          .equals('margin: 12px 8px 10px');
+      });
+
+      it('Changes order when four values are passed in rtl mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 8px 10px 6px', false)
+          .equals('margin:12px 6px 10px 8px');
+      });
+
+      it ('Can generate values in rem', () => {
+        sassaby.includedMixin('_jigsass-bidi-sides')
+          .calledWithArgs('margin', '12px 18px 3px 6px', true)
+          .equals('margin: 2rem 1rem .5rem 3rem');
+      });
+    });
+  });
 });
