@@ -43,6 +43,92 @@ describe('jigsass-tools-bidi', () => {
     });
   });
 
+  describe('_jigsass-str2num [Function]', () => {
+    it('Converts a string to an integer', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"24"')
+        .equals(24);
+    });
+
+    it('Converts a string to a negative integer', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"-24"')
+        .equals(-24);
+    });
+
+    it('Converts a string padded with zero to an integer', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"024"')
+        .equals(24);
+    });
+
+    it('Converts a string paddend with zero to a negative integer', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"-024"')
+        .equals(-24);
+    });
+
+    it('Converts a string to a float', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"24.5"')
+        .equals(24.5);
+    });
+
+    it('Converts a string to a negative float', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"-24.5"')
+        .equals(-24.5);
+    });
+
+    it('Converts a string to a float bellow 1', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('".51"')
+        .equals('.51');
+    });
+
+    it('Converts a string to a negative float bellow 1 (zero padded)', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"-0.5"')
+        .equals(-.5);
+    });
+
+    it('Converts a string to a float bellow 1 (zero padded)', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"0.5"')
+        .equals('.5');
+    });
+
+    it('Converts a string to a negative float bellow 1 (zero padded)', () => {
+      sassaby.func('_jigsass-str2num')
+        .calledWithArgs('"-0.5"')
+        .equals(-.5);
+    });
+  });
+
+
+  describe('_jigsass-bidi-trim [Function]', () => {
+    it('Removes whitespace at beginning and end of a string', () => {
+      sassaby.func('_jigsass-bidi-trim')
+        .calledWithArgs('"   a padded string   "')
+        .equals('"a padded string"');
+        ;
+    });
+
+    it('Removes whitespace only at the beginning of a string', () => {
+      sassaby.func('_jigsass-bidi-trim')
+        .calledWithArgs('"   a padded string   "', true, false)
+        .equals('"a padded string   "');
+        ;
+    });
+
+    it('Removes whitespace only at the end of a string', () => {
+      sassaby.func('_jigsass-bidi-trim')
+        .calledWithArgs('"   a padded string   "', false, true)
+        .equals('"   a padded string"');
+        ;
+    });
+  });
+
 
   describe('jigsass-str-replace [Function]', () => {
     it('Replaces a substring in the middle of a sring', () => {
@@ -419,6 +505,206 @@ describe('jigsass-tools-bidi', () => {
         sassaby.includedMixin('_jigsass-bidi-sides')
           .calledWithArgs('margin', '12px 18px 3px 6px', true)
           .equals('margin: 2rem 1rem .5rem 3rem');
+      });
+    });
+  });
+
+  describe('_jigsass-bidi-bgi [Mixin]', () => {
+    describe('LTR', () => {
+      describe('End', () => {
+        it('Converts end to right when it is the only direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to end, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to right, blue, green 40%, red)');
+        });
+
+        it('Converts end to right when it is the first direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to end top, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to right top, blue, green 40%, red)');
+        });
+
+        it('Converts end to right when it is the second direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to top end, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to top right, blue, green 40%, red)');
+        });
+      });
+
+      describe('Start', () => {
+        it('Converts start to left when it is the only direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to start, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to left, blue, green 40%, red)');
+        });
+
+        it('Converts start to left when it is the first direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to start top, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to left top, blue, green 40%, red)');
+        });
+
+        it('Converts start to left when it is the second direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to top start, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to top left, blue, green 40%, red)');
+        });
+      });
+
+      describe('Deg', () => {
+        it('Does nothing when `deg` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(45deg, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(45deg, blue, green 40%, red)');
+        });
+
+        it('Does nothing when `deg` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-45deg, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(-45deg, blue, green 40%, red)');
+        });
+      });
+
+      describe('Turn', () => {
+        it('Does nothing when `turn` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(0.27turn, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(0.27turn, blue, green 40%, red)');
+        });
+
+        it('Does nothing when `turn` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-.3turn, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(-0.3turn, blue, green 40%, red)');
+        });
+      });
+
+      describe('Grad', () => {
+        it('Does nothing when `grad` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(100grad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(100grad, blue, green 40%, red)');
+        });
+
+        it('Does nothing when `grad` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-89grad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(-89grad, blue, green 40%, red)');
+        });
+      });
+
+      describe('Rad', () => {
+        it('Does nothing when `rad` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(1.2rad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(1.2rad, blue, green 40%, red)');
+        });
+
+        it('Does nothing when `rad` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-2.7rad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(-2.7rad, blue, green 40%, red)');
+        });
+      });
+    });
+
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      describe('End', () => {
+        it('Converts end to left when it is the only direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to end, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to left, blue, green 40%, red)');
+        });
+
+        it('Converts end to left when it is the first direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to end top, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to left top, blue, green 40%, red)');
+        });
+
+        it('Converts end to left when it is the second direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to top end, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to top left, blue, green 40%, red)');
+        });
+      });
+
+      describe('Start', () => {
+        it('Converts start to right when it is the only direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to start, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to right, blue, green 40%, red)');
+        });
+
+        it('Converts start to right when it is the first direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to start top, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to right top, blue, green 40%, red)');
+        });
+
+        it('Converts start to right when it is the second direction argument', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(to top start, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(to top right, blue, green 40%, red)');
+        });
+      });
+
+      describe('Deg', () => {
+        it('Reverses gradient direction when `deg` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(45deg, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(315deg, blue, green 40%, red)');
+        });
+
+        it('Reverses gradient direction when `deg` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-45deg, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(405deg, blue, green 40%, red)');
+        });
+      });
+
+      describe('Turn', () => {
+        it('Reverses gradient direction when `turn` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(0.27turn, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(0.73turn, blue, green 40%, red)');
+        });
+
+        it('Reverses gradient direction when `turn` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-.3turn, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(1.3turn, blue, green 40%, red)');
+        });
+      });
+
+      describe('Grad', () => {
+        it('Reverses gradient direction when `grad` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(100grad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(300grad, blue, green 40%, red)');
+        });
+
+        it('Reverses gradient direction when `grad` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-89grad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(489grad, blue, green 40%, red)');
+        });
+      });
+
+      describe('Rad', () => {
+        it('Reverses gradient direction when `rad` is positive', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(1.2rad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(5.08319rad, blue, green 40%, red)');
+        });
+
+        it('Reverses gradient direction when `rad` is negative', () => {
+          sassaby.includedMixin('_jigsass-bidi-bgi')
+            .calledWithArgs('linear-gradient(-2.7rad, blue, green 40%, red)')
+            .equals('background-image: linear-gradient(8.98319rad, blue, green 40%, red)');
+        });
       });
     });
   });
