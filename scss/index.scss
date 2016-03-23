@@ -240,6 +240,31 @@ $jigsass-direction: ltr !default;
 // Helper Mixins
 // -------------------------------------
 
+
+
+/// Direction agnostic `direction`
+/// ---
+/// @param {String} $direction
+///   `ste` = start-to-end, `ets` = end-to-start.
+///   `rtl` and `ltr` will be printed as is, without
+///   trasformation, regardless of the JigSass direction context
+/// ---
+@mixin _jigsass-bidi-direction($direction) {
+  @if (not index(ltr rtl ste ets, $direction)) {
+    @error 'jigsass-bidi: #{$direction} is not a valid direction value. ' +
+      'Try `ste` (contextual - start-to-end), `ets` (contextual - end-to-start)' +
+      '`ltr` (absolute, will not be converted) or `rtl` (absolute, will not be converted).';
+  }
+
+  $_rtl: $jigsass-direction == rtl;
+
+  @if ($direction == ste) { $direction: if($_rtl, rtl, ltr); }
+  @if ($direction == ets) { $direction: if($_rtl, ltr, rtl); }
+
+  direction: $direction;
+}
+
+
 /// Helper for simple text replacements
 /// ---
 @mixin _jigsass-bidi-simple($property, $values, $rem) {

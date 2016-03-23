@@ -744,4 +744,58 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+  describe('_jigsass-bidi-direction [Mixin]', () => {
+    describe('LTR', () => {
+      it('Converts ste to ltr', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('ste')
+          .equals('direction: ltr');
+      });
+
+      it('Converts ets to rtl', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('ets')
+          .equals('direction: rtl');
+      });
+
+      it('Does not convert ltr', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('ltr')
+          .equals('direction: ltr');
+      });
+
+      it('Does not convert rtl', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('rtl')
+          .equals('direction: rtl');
+      });
+    });
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      it('Converts ste to rtl', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('ste')
+          .equals('direction: rtl');
+      });
+
+      it('Converts ets to ltr', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('ets')
+          .equals('direction: ltr');
+      });
+
+      it('Does not convert ltr', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('ltr')
+          .equals('direction: ltr');
+      });
+
+      it('Does not convert rtl', () => {
+        sassaby.includedMixin('_jigsass-bidi-direction')
+          .calledWithArgs('rtl')
+          .equals('direction: rtl');
+      });
+    });
+  });
 });
