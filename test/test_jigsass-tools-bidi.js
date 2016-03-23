@@ -677,4 +677,71 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+
+  describe('_jigsass-bidi-bgp [Mixin]', () => {
+    describe('LTR', () => {
+      it('Converts end to right', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('end 25%, false')
+          .equals('background-position: right 25%');
+      });
+
+      it('Converts start to left', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('start bottom, false')
+          .equals('background-position: left bottom');
+      });
+
+      it('Does nothing to numbers in LTR mode (single number)', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('25%, false')
+          .equals('background-position: 25%');
+      });
+
+      it('Does nothing to numbers in LTR mode (two numbers)', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('25% 30%, false')
+          .equals('background-position: 25% 30%');
+      });
+
+      it('Can handle multiple backgrounds', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('(25% 30%, end bottom), false')
+          .equals('background-position: 25% 30%, right bottom');
+      });
+    });
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      it('Converts end to left', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('end 25%, false')
+          .equals('background-position: left 25%');
+      });
+
+      it('Converts start to right', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('start bottom, false')
+          .equals('background-position: right bottom');
+      });
+
+      it('Splits single number to two, and transforms only the first', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('25%, false')
+          .equals('background-position: 75% 25%');
+      });
+
+      it('Transforms only first number when two are passed', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('25% 30%, false')
+          .equals('background-position: 75% 30%');
+      });
+
+      it('Can handle multiple backgrounds', () => {
+        sassaby.includedMixin('_jigsass-bidi-bgp')
+          .calledWithArgs('(25% 30%, end bottom), false')
+          .equals('background-position: 75% 30%, left bottom');
+      });
+    });
+  });
 });

@@ -187,6 +187,43 @@ $jigsass-direction: ltr !default;
 }
 
 
+/// Utility function to transform background-position
+/// values in a `start-to-end`, direction-agnostic manner
+@function _jigsass-bidi-bgp($position) {
+  $_rtl: $jigsass-direction == rtl;
+  $_value-store: ();
+
+  @for $i from 1 through length($position) {
+    $_value: nth($position, $i);
+    $_type: type-of($_value);
+
+    @if (index(start end, $_value)) {
+      @if ($i != 1) {
+        @error 'jigsass-bidi: horizontal position must be passed before vertical ' +
+          '(When trying to set #{$position}).'
+      }
+      $_sides: (start: if($_rtl, right, left), end: if($_rtl, left, right));
+
+      $_value: map-get($_sides, $_value);
+    }
+
+    @else if ($_type == number and $_rtl) {
+      @if ($i == 1 and unit($_value) == '%') {
+        $_value: if(
+          length($position) == 1,
+          abs($_value - 100%) $_value,
+          abs($_value - 100%)
+        );
+      }
+    }
+
+    $_value-store: append($_value-store, $_value);
+  }
+
+  @return $_value-store;
+}
+
+
 
 
 
@@ -308,7 +345,58 @@ $jigsass-direction: ltr !default;
     $_values-store: append($_values-store, $value, comma);
   }
 
-  background-image: $_values-store;
+  background-image: $_values-store or $values;
+}
+
+
+/// Direction agnostic background-position
+///
+/// transforms background-position values in a
+/// `start-to-end`, direction-agnostic manner
+/// ---
+/// @param {String | Number | List} $values
+///   Only numbers specified in percentage units can be
+///   transformed, as other units require knowledge of the
+///   container's width.
+///
+///   For multiple positions (in cases of multiple background images),
+///   each _set_ of position values must be a space-separated list
+///   inside a comma-separated list.
+///
+///   For example, to get:
+///   '''css
+///     background-position: 25% 50%, left
+///   '''
+///
+///   The `$values` argument should be passed as:
+///   '''scss
+///     $values: (25% 50%, left)
+///   '''
+/// @param {Boolean} $rem
+///   Determines if pixel values will be converted into rems.
+/// ---
+@mixin _jigsass-bidi-bgp($values, $rem) {
+  $_positions: ();
+
+  $_multi-bgs: list-separator($values) == comma;
+
+  @each $value in $values {
+    @if (length($value) > 2) {
+      @error 'jigsass-bidi: `background-position` only takes two arguments per' +
+        'position, but you are trying to pass #{length($value)}. Did you mean ' +
+        'to specify multiple positions?';
+    }
+  }
+
+  @if ($_multi-bgs) {
+    @each $position in $values {
+      $_positions: append($_positions, _jigsass-bidi-bgp($position), comma);
+    }
+  }
+  @else { $_positions: append($_positions, _jigsass-bidi-bgp($values), comma); }
+
+  @if ($rem) { @include jigsass-rem(background-position, $_positions); }
+  @else { background-position: $_positions; }
 }
 
 
