@@ -187,74 +187,6 @@ $jigsass-direction: ltr !default;
 }
 
 
-/// Parse primary and secondary border radius values,
-/// and return them as a map with the value of each
-/// in its own key.
-/// ---
-/// @param {List} $values
-///   primary and optionally secondary values for border-radius.
-///
-///   If secondary values are passed as well, one set of values
-///   must be a `list` itself.
-///   If that set is of a single value (i.e. as in CSS
-///   `border-radius: 6px / 12px`), the value must be coerced
-///   into a list (e.g `$values: 6px (12px,)`)
-/// ---
-/// @return {Map}
-///   a map with `primary` and `secondary` keys holding lists of values.
-/// ---
-/// @access private
-/// ---
-@function _jigsass-parse-bdrs-values($values) {
-  $primary: ();
-  $secondary: ();
-
-  $_first-found: false;
-  $_first-is-list: false;
-
-  @each $value in $values {
-    @if (type-of($value) == list) {
-      @if ($_first-found) {
-        $secondary: $value;
-      }
-
-      @else if (not $_first-found) {
-        $_first-found: true;
-        $_first-is-list: true;
-
-        $primary: $value;
-      }
-    }
-
-    @else if (type-of($value) == number) {
-      @if ($_first-is-list) {
-        $secondary: append($secondary, $value)
-      }
-      @else if (not $_first-is-list) {
-        $_first-found: true;
-
-        $primary: append($primary, $value)
-      }
-    }
-  }
-
-  @if (length($primary) > 4) {
-    @error '_jigsass-parse-bdrs-values: Border-radius can acceps a maximum' +
-      'of four primary (horizontal) values, but your are trying to pass #{length($value)}';
-  }
-
-  @if (length($secondary) > 4) {
-    @error '_jigsass-parse-bdrs-values: Border-radius can acceps a maximum' +
-      'of four secondary (vertical) values, but your are trying to pass #{length($value)}';
-  }
-
-  @return (
-    primary: $primary,
-    secondary: if(length($secondary) > 0, $secondary, null)
-  );
-}
-
-
 
 
 
@@ -387,19 +319,45 @@ $jigsass-direction: ltr !default;
 ///   with support for primary and optionally secondary border-radius
 ///   values for border-radius.
 ///
-///   If secondary values are passed as well, one set of values
-///   must be a `list` itself.
-///   If that set is of a single value (i.e. as in CSS
-///   `border-radius: 6px / 12px`), the value must be coerced
-///   into a list (e.g `$values: 6px (12px,)`)
+///   When secondary values are set, each _set_ of radii must be a
+///   space-separated list inside a comma-separated list.
+///
+///   For example, to get:
+///   '''css
+///     border-radius: 12px 6px / 18px;
+///   '''
+///
+///   The `$values` argument should be passed as:
+///   '''scss
+///     $values: (12px 6px, 18px)
+///   '''
 /// @param {Boolean} $rem
 ///   Determines if pixel values will be converted into rems.
 /// ---
 @mixin _jigsass-bidi-bdrs($values, $rem) {
-  $_parssed-values: _jigsass-parse-bdrs-values($values);
+  $_has-secondary: if(list-separator($values) == comma, (), null);
+  $_rtl: $jigsass-direction == rtl;
 
-  $_primary: map-get($_parssed-values, primary);
-  $_secondary: map-get($_parssed-values, secondary);
+  @if (length($values) > 4) {
+    @error 'jigsass-bidi: `border-radius` can have a maximum of 4 primary or ' +
+      'secondary values, you are trying to pass #{length($values)}. Are you ' +
+      'trying to set secondary (vertical) radii?';
+  }
+  @if ($_has-secondary and length($values) > 2) {
+    @error 'jigsass-bidi: `border-radius` can have a maximum of 2 **sets** of ' +
+      'of 4 values, but you are trying to set #{length($values)}.';
+  }
+  @if ($_has-secondary) {
+    @each $set in $values {
+      @if (length($set) > 4) {
+        @error 'jigsass-bidi: `border-radius` accepts a maximum of 4 primary or ' +
+          'secondary values, you are trying to pass #{length($set)}.';
+      }
+    }
+  }
+
+  $_primary: if($_has-secondary, nth($values, 1), $values);
+  $_secondary: if($_has-secondary, nth($values, 2), null);
 
   $_p-length: length($_primary);
   $_s-length: length($_secondary);
@@ -413,8 +371,6 @@ $jigsass-direction: ltr !default;
   $top-end-v: if($_s-length > 1, nth($_secondary, 2), false);
   $bottom-end-v: if($_s-length > 2, nth($_secondary, 3), false);
   $bottom-start-v: if($_s-length > 3, nth($_secondary, 4), false);
-
-  $_rtl: $jigsass-direction == rtl;
 
   // If no valid value is provided
   @if (index(null '' false, $values)) {
