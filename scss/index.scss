@@ -21,6 +21,10 @@
   @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography`. Please import it.'
 }
 
+@if (not function-exists(jigsass-str-replace)) {
+  @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-strings`. Please import it.'
+}
+
 
 
 
@@ -63,127 +67,6 @@ $jigsass-direction: ltr !default;
   }
 
   @return if(to-lower-case($side) == start, right, left);
-}
-
-
-/// Helper to convert a string representing a
-/// untiless number into an actual unitless number
-@function _jigsass-str2num($num-string) {
-  $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
-  $is-neg: str-slice($num-string, 1, 1) == '-';
-  $chars: if($is-neg, str-slice($num-string, 2), $num-string);
-  $has-decimal: false;
-  $decimal: 1;
-  $num: 0;
-
-  @for $i from 1 through str-length($chars) {
-    $char: str-slice($chars, $i, $i);
-
-    @if ($char == '.') {
-      $has-decimal: true;
-    }
-
-    @else if (not $has-decimal) {
-      $num: $num * 10 + map-get($numbers, $char);
-    }
-
-    @else {
-      $decimal: $decimal * 10;
-      $num: $num + map-get($numbers, $char) / $decimal;
-    }
-  }
-
-  @return if($is-neg, -1 * $num, $num);
-}
-
-
-/// Trim whitespace from a string
-/// ---
-/// @param {String} $string
-/// @param {Boolean} $leading [true]
-/// @param {Boolean} $trailing [true]
-///   Indicates if trailing whitespace will be removed
-/// ---
-/// @return {String} - The trimmed string
-/// ---
-/// @access private
-/// ---
-@function _jigsass-bidi-trim($string, $leading: true, $trailing: true) {
-  @if ($leading and str-index($string, ' ') == 1) {
-    $string: str-slice($string, 2);
-
-    @if (str-index($string, ' ') == 1) {
-      $string: _jigsass-bidi-trim($string, true, false);
-    }
-  }
-  @if ($trailing and str-slice($string, -1) == ' ') {
-    $string: str-slice($string, 1, -2);
-
-    @if (str-slice($string, -1) == ' ') {
-      $string: _jigsass-bidi-trim($string, false, true);
-    }
-  }
-
-  @return $string;
-}
-
-
-/// Replace a substring inside a string
-/// ---
-/// @param {String} $string
-///   The string to search in
-/// @param {String} $substr
-///   The substring to search for
-/// @param {String} $new-substr
-///   The substring to replace `$substr` with
-/// @param {Boolean} $replace-all
-///   Replace all instances of `$substr`, or just the first
-/// @param {Boolean} $match-case
-/// ---
-/// @return {String} The replaced string
-/// ---
-@function jigsass-str-replace(
-  $string,
-  $substr,
-  $new-substr: null,
-  $replace-all: true,
-  $match-case: true
-) {
-  // Coerce arguments into strings
-  $string: inspect($string);
-  $surstr: inspect($substr);
-  $new-surstr: inspect($new-substr);
-
-  @if ($string == $substr) { @return $new-substr; }
-
-  $sub-index: if(
-    $match-case,
-    str-index($string, $substr),
-    str-index(to-lower-case($string), $substr)
-  );
-
-  @if ($sub-index) {
-    $sub-end-index: $sub-index + str-length($substr);
-
-    $prefix: if($sub-index == 1, '', str-slice($string, 1, ($sub-index - 1)));
-    $suffix: str-slice($string, $sub-end-index);
-
-    // Recurse if replace all.
-    @if ($replace-all and str-index($suffix, $substr)) {
-      $suffix: jigsass-str-replace(
-        $suffix,
-        $substr,
-        $new-substr,
-        true,
-        $match-case
-      );
-    }
-
-    $_string: $prefix + ($new-substr or '') + $suffix;
-    @return unquote(inspect($_string));
-  }
-
-  @return unquote(inspect($string));
 }
 
 
@@ -326,7 +209,7 @@ $jigsass-direction: ltr !default;
 
       @else if ($_rtl) {
         $value: str-slice($value, str-index($value, 'linear-gradient(') + 16);
-        $value: _jigsass-bidi-trim($value, true, false);
+        $value: jigsass-str-trim($value, true, false);
 
         $_angle: false;
 
@@ -351,7 +234,7 @@ $jigsass-direction: ltr !default;
 
           $num-str: str-slice($value, 1, $_end);
 
-          $num: _jigsass-str2num($num-str);
+          $num: jigsass-str-to-number($num-str);
 
           @if ($_type == deg) { $num: abs($num - 360); }
           @else if ($_type == turn) {

@@ -43,132 +43,6 @@ describe('jigsass-tools-bidi', () => {
     });
   });
 
-  describe('_jigsass-str2num [Function]', () => {
-    it('Converts a string to an integer', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"24"')
-        .equals(24);
-    });
-
-    it('Converts a string to a negative integer', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"-24"')
-        .equals(-24);
-    });
-
-    it('Converts a string padded with zero to an integer', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"024"')
-        .equals(24);
-    });
-
-    it('Converts a string paddend with zero to a negative integer', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"-024"')
-        .equals(-24);
-    });
-
-    it('Converts a string to a float', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"24.5"')
-        .equals(24.5);
-    });
-
-    it('Converts a string to a negative float', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"-24.5"')
-        .equals(-24.5);
-    });
-
-    it('Converts a string to a float bellow 1', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('".51"')
-        .equals('.51');
-    });
-
-    it('Converts a string to a negative float bellow 1 (zero padded)', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"-0.5"')
-        .equals(-.5);
-    });
-
-    it('Converts a string to a float bellow 1 (zero padded)', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"0.5"')
-        .equals('.5');
-    });
-
-    it('Converts a string to a negative float bellow 1 (zero padded)', () => {
-      sassaby.func('_jigsass-str2num')
-        .calledWithArgs('"-0.5"')
-        .equals(-.5);
-    });
-  });
-
-
-  describe('_jigsass-str-trim [Function]', () => {
-    it('Removes whitespace at beginning and end of a string', () => {
-      sassaby.func('_jigsass-str-trim')
-        .calledWithArgs('"   a padded string   "')
-        .equals('"a padded string"');
-        ;
-    });
-
-    it('Removes whitespace only at the beginning of a string', () => {
-      sassaby.func('_jigsass-str-trim')
-        .calledWithArgs('"   a padded string   "', true, false)
-        .equals('"a padded string   "');
-        ;
-    });
-
-    it('Removes whitespace only at the end of a string', () => {
-      sassaby.func('_jigsass-str-trim')
-        .calledWithArgs('"   a padded string   "', false, true)
-        .equals('"   a padded string"');
-        ;
-    });
-  });
-
-
-  describe('jigsass-str-replace [Function]', () => {
-    it('Replaces a substring in the middle of a sring', () => {
-      sassaby.func('jigsass-str-replace')
-        .calledWithArgs('A string to search in', 'to', 'we can')
-        .equals('A string we can search in');
-    });
-
-    it('Replaces a substring at he beginning of a sring', () => {
-      sassaby.func('jigsass-str-replace')
-        .calledWithArgs('"foo bar baz"', 'foo', 'quax')
-        .equals('quax bar baz');
-    });
-
-    it('Replace all instances of the substring by default', () => {
-      sassaby.func('jigsass-str-replace')
-        .calledWithArgs('foo bar baz quax foo bar norf', 'bar', 'frog')
-        .equals('foo frog baz quax foo frog norf');
-    });
-
-    it('Can replace only a single instance of the substring', () => {
-      sassaby.func('jigsass-str-replace')
-        .calledWithArgs('foo bar baz quax foo bar norf', 'bar', 'frog', '$replace-all: false')
-        .equals('foo frog baz quax foo bar norf');
-    });
-
-    it('Is case sensitive', () => {
-      sassaby.func('jigsass-str-replace')
-        .calledWithArgs('foo Bar baz', 'bar', 'quax')
-        .equals('foo Bar baz');
-    });
-
-    it('Can ignore case diffrences', () => {
-      sassaby.func('jigsass-str-replace')
-        .calledWithArgs('foo Bar baz', 'bar', 'Quax', '$match-case: false')
-        .equals('foo Quax baz');
-    });
-  });
-
-
   describe('_jigsass-bidi-simple [Mixin]', () => {
     describe('LTR', () => {
       describe('Property', () => {
@@ -770,6 +644,7 @@ describe('jigsass-tools-bidi', () => {
           .equals('direction: rtl');
       });
     });
+
     describe('RTL', () => {
       const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
 
