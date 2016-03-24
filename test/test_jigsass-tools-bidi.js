@@ -673,4 +673,114 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+
+  describe('_jigsass-bidi-shadow [Mixin]', () => {
+    describe('LTR', () => {
+      describe('text-shadow', () => {
+        it('Does not transform values when inset is specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', 'inset 12px 4em 2rem #ccc', false)
+            .equals('text-shadow: inset 12px 4em 2rem #ccc');
+        });
+
+        it('Does not transform values when inset is not specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', '12px 4em 2rem #ccc', false)
+            .equals('text-shadow: 12px 4em 2rem #ccc');
+        });
+
+        it('Converts pixel values to rems', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', '12px 18px 6px 24px #ccc', true)
+            .equals('text-shadow: 2rem 3rem 1rem 4rem #ccc');
+        });
+      });
+      describe('box-shadow', () => {
+        it('Does not transform values when inset is specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', 'inset 12px 4em 2rem #ccc', false)
+            .equals('box-shadow: inset 12px 4em 2rem #ccc');
+        });
+
+        it('Does not transform values when inset is not specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', '12px 4em 2rem #ccc', false)
+            .equals('box-shadow: 12px 4em 2rem #ccc');
+        });
+
+        it('Converts pixel values to rems', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', '12px 18px 6px 24px #ccc', true)
+            .equals('box-shadow: 2rem 3rem 1rem 4rem #ccc');
+        });
+      });
+    });
+
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      describe('text-shadow', () => {
+        it('Transforms values when inset is specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', 'inset 12px 4em 2rem #ccc', false)
+            .equals('text-shadow: inset -12px 4em 2rem #ccc');
+        });
+
+        it('Transforms negative values when inset is specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', 'inset -12px 4em 2rem #ccc', false)
+            .equals('text-shadow: inset 12px 4em 2rem #ccc');
+        });
+
+        it('Transforms values when inset is not specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', '12px 4em 2rem #ccc', false)
+            .equals('text-shadow: -12px 4em 2rem #ccc');
+        });
+
+        it('Transforms negative values when inset is not specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', '-12px 4em 2rem #ccc', false)
+            .equals('text-shadow: 12px 4em 2rem #ccc');
+        });
+
+        it('Transforms and Converts pixel values to rems', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('text-shadow', '12px 18px 6px 24px #ccc', true)
+            .equals('text-shadow: -2rem 3rem 1rem 4rem #ccc');
+        });
+      });
+      describe('box-shadow', () => {
+        it('Transforms values when inset is specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', 'inset 12px 4em 2rem #ccc', false)
+            .equals('box-shadow: inset -12px 4em 2rem #ccc');
+        });
+
+        it('Transforms negative values when inset is specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', 'inset -12px 4em 2rem #ccc', false)
+            .equals('box-shadow: inset 12px 4em 2rem #ccc');
+        });
+
+        it('Transforms values when inset is not specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', '12px 4em 2rem #ccc', false)
+            .equals('box-shadow: -12px 4em 2rem #ccc');
+        });
+
+        it('Transforms negative values when inset is not specified', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', '-12px 4em 2rem #ccc', false)
+            .equals('box-shadow: 12px 4em 2rem #ccc');
+        });
+
+        it('Transforms and converts pixel values to rems', () => {
+          sassaby.includedMixin('_jigsass-bidi-shadow')
+            .calledWithArgs('box-shadow', '12px 18px 6px 24px #ccc', true)
+            .equals('box-shadow: -2rem 3rem 1rem 4rem #ccc');
+        });
+      });
+    });
+  });
 });

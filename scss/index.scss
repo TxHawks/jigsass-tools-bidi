@@ -70,6 +70,25 @@ $jigsass-direction: ltr !default;
 }
 
 
+/// Helper for transforming direction-agnostic
+/// text/box-shadow values
+/// ---
+/// @param {List} $values
+///   A space-separated list of box-shadow values, or
+/// ---
+/// @return {List} Transformed box shadow values
+/// ---
+@function _jigsass-bidi-shadow($values) {
+  $h-offset-index: if(type-of(nth($values, 1)) == string, 2, 1);
+
+  @return set-nth(
+    $values,
+    $h-offset-index,
+    (-1 * nth($values, $h-offset-index))
+  );
+}
+
+
 /// Utility function to transform background-position
 /// values in a `start-to-end`, direction-agnostic manner
 @function _jigsass-bidi-bgp($position) {
@@ -182,6 +201,42 @@ $jigsass-direction: ltr !default;
   @if ($rem) { @include jigsass-rem($property, $values); }
 
   @else { #{$property}: $values; }
+}
+
+
+/// Helper for direction agnostic box/text-shadow authoring
+/// ---
+/// @param {String} $property
+///   `text-shadow` or `box-shadow`
+/// @param {List} $values
+///   A space-separated list of box-shadow values, or
+///   a comma-separated list of space-separated lists
+///   of box-shadow values
+/// @param {Boolean} $rem
+///   Determines if pixel values will be converted into rems.
+/// ---
+@mixin _jigsass-bidi-shadow($property, $values, $rem) {
+  $_rtl: $jigsass-direction == rtl;
+  $_multi-shadows: list-separator($values) == comma;
+
+  $shadows: null;
+
+  @if ($_rtl) {
+    $shadows: ();
+
+    @if ($_multi-shadows) {
+      @each $shadow in $values {
+        $shadows: append($shadows, _jigsass-bidi-shadow($shadow));
+      }
+    }
+
+    $shadows: append($shadows, _jigsass-bidi-shadow($values));
+  }
+
+
+  @if ($rem) { @include jigsass-rem($property, $shadows or $values); }
+
+  @else { #{$property}: $shadows or $values; }
 }
 
 
