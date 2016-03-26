@@ -783,4 +783,201 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+
+  describe('_jigsass-bidi-transform [Mixin]', () => {
+    describe('LTR', () => {
+      it('Doesn\'t transform values of a single function in `LTR` mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform')
+          .calledWithArgs('rotateZ(0.5turn), false')
+          .equals('transform:rotateZ(0.5turn)');
+      });
+
+      it('Doesn\'t transform values of a multiple functions in `LTR` mode', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform')
+          .calledWithArgs('rotateZ(0.5turn) translate3d(5px, 8px, 10px), false')
+          .equals('transform:rotateZ(0.5turn) translate3d(5px, 8px, 10px)');
+      });
+    });
+
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      it('Transform value in functions that support a single value', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform')
+          .calledWithArgs('translateX(5px), false')
+          .equals('transform:translateX(-5px)');
+      });
+
+      it('Transform single values in functions that support multiple values', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform')
+          .calledWithArgs('translate(5px), false')
+          .equals('transform:translate(-5px)');
+      });
+
+      it('Transform first of two values', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform')
+          .calledWithArgs('skew(20deg, 50deg), false')
+          .equals('transform:skew(340deg, 50deg)');
+      });
+
+      it('Transforms first of three values', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform')
+          .calledWithArgs('translate3d(5px, 10px, 15px), false')
+          .equals('transform:translate3d(-5px, 10px, 15px)');
+      });
+
+      describe('Rotate', () => {
+        it('Transforms `deg` values in `rotate` function', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotate(181deg), false')
+            .equals('transform:rotate(179deg)');
+        });
+
+        it('Transforms `turn` values in `rotateZ` function', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotateZ(0.25turn), false')
+            .equals('transform:rotateZ(0.75turn)');
+        });
+
+        it('Transforms `deg` values in `rotateZ` function', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotateZ(181deg), false')
+            .equals('transform:rotateZ(179deg)');
+        });
+
+        it('Transforms `grad` values in `rotateZ` function', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotateZ(100grad), false')
+            .equals('transform:rotateZ(300grad)');
+        });
+
+        it('Transforms `grad` values in `rotateZ` function', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotateZ(0.76rad), false')
+            .equals('transform:rotateZ(5.52319rad)');
+        });
+
+        it('Transforms Z values of rotate3d function when passed in turn units', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotate3d(0turn, 0turn, 0.25turn), false')
+            .equals('transform:rotate3d(0turn, 0turn, 0.75turn)');
+        });
+
+        it('Transforms Z values of rotate3d function when passed in deg units', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotate3d(0deg, 0deg, 90deg), false')
+            .equals('transform:rotate3d(0deg, 0deg, 270deg)');
+        });
+
+        it('Transforms Z values of rotate3d function when passed in grad units', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotate3d(0grad, 0grad, 100grad), false')
+            .equals('transform:rotate3d(0grad, 0grad, 300grad)');
+        });
+
+        it('Transforms Z values of rotate3d function when passed in grad units', () => {
+          sassaby.includedMixin('_jigsass-bidi-transform')
+            .calledWithArgs('rotate3d(0rad, 0rad, 0.76rad), false')
+            .equals('transform:rotate3d(0rad, 0rad, 5.52319rad)');
+        });
+      });
+    });
+  });
+
+  describe('_jigsass-bidi-transform-origin [Mixin]', () => {
+    describe('LTR', () => {
+      it('Transforms `start` when single argument', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('start, false')
+          .equals('transform-origin:left');
+      });
+
+      it('Transforms `start` when in 1st position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('start bottom, false')
+          .equals('transform-origin:left bottom');
+      });
+
+      it('Transforms `end` when single argument', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('end, false')
+          .equals('transform-origin:right');
+      });
+
+      it('Transforms `end` when in 1st position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('end bottom, false')
+          .equals('transform-origin:right bottom');
+      });
+
+      it('Transforms `start` when in 2nd position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('top start, false')
+          .equals('transform-origin:top left');
+      });
+
+      it('Transforms `end` when in 2nd position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('top end, false')
+          .equals('transform-origin:top right');
+      });
+    });
+    describe('RTL', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-direction': 'rtl', } })
+
+      it('Transforms `start` when single argument', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('start, false')
+          .equals('transform-origin: right');
+      });
+
+      it('Transforms `percentage` when single argument', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('75%, false')
+          .equals('transform-origin: 25%');
+      });
+
+      it('Transforms `start` when in 1st position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('start bottom, false')
+          .equals('transform-origin:right bottom');
+      });
+
+      it('Transforms `percentage` when in 1st position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('75% 30%, false')
+          .equals('transform-origin: 25% 30%');
+      });
+
+      it('Transforms `end` when single argument', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('end, false')
+          .equals('transform-origin:left');
+      });
+
+      it('Transforms `end` when in 1st position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('end bottom, false')
+          .equals('transform-origin:left bottom');
+      });
+
+      it('Transforms `start` when in 2nd position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('top start, false')
+          .equals('transform-origin:top right');
+      });
+
+      it('Transforms `percentage` when in 2nd position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('top 75%, false')
+          .equals('transform-origin:top 25%');
+      });
+
+      it('Transforms `end` when in 2nd position', () => {
+        sassaby.includedMixin('_jigsass-bidi-transform-origin')
+          .calledWithArgs('top end, false')
+          .equals('transform-origin:top left');
+      });
+    });
+  });
 });

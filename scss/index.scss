@@ -5,6 +5,10 @@
 //
 // Author: TxHawks (tofu.hawks@gmail.com)
 //
+////
+/// @group bidi
+////
+//
 // *************************************
 
 @charset 'UTF-8';
@@ -62,7 +66,7 @@ $jigsass-direction: ltr !default;
     @error '_jigsass-get-side: `$side` may only be `start` or `end`, but you passed `#{$side}`';
   }
 
-  @if ($jigsass-direction == to-lower-case(ltr)) {
+  @if (to-lower-case($jigsass-direction) == ltr) {
     @return if(to-lower-case($side) == start, left, right);
   }
 
@@ -92,7 +96,7 @@ $jigsass-direction: ltr !default;
 /// Utility function to transform background-position
 /// values in a `start-to-end`, direction-agnostic manner
 @function _jigsass-bidi-bgp($position) {
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
   $_value-store: ();
 
   @for $i from 1 through length($position) {
@@ -123,6 +127,26 @@ $jigsass-direction: ltr !default;
   }
 
   @return $_value-store;
+}
+
+
+/// A helper to convert direction agnostic
+/// transform functions' arguments
+/// ---
+/// @param {Number} $value - The value to transform
+/// ---
+/// @return {Number}
+/// ---
+/// @access private
+/// ---
+@function _jigsass-bidi-transform($value) {
+  $unit: unit($value);
+
+  @if ($unit == px) { @return $value * -1; }
+  @if ($unit == deg) { @return abs($value - 360); }
+  @if ($unit == turn) { @return abs($value - 1); }
+  @if ($unit == grad) { @return abs($value - 400); }
+  @if ($unit == rad) { @return abs($value - 6.2831853072); }
 }
 
 
@@ -158,7 +182,7 @@ $jigsass-direction: ltr !default;
       '`ltr` (absolute, will not be converted) or `rtl` (absolute, will not be converted).';
   }
 
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
 
   @if ($direction == ste) { $direction: if($_rtl, rtl, ltr); }
   @if ($direction == ets) { $direction: if($_rtl, ltr, rtl); }
@@ -167,10 +191,15 @@ $jigsass-direction: ltr !default;
 }
 
 
-/// Helper for simple text replacements
+/// Contextually convert `start` and `end` into `left` or `right.`
+/// ---
+/// @param {String} $property
+/// @param {Number | String | list | Color} $values
+/// ---
+/// @access private
 /// ---
 @mixin _jigsass-bidi-simple($property, $values, $rem) {
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
 
   $_prop: if(
     str-index($property, start),
@@ -189,10 +218,18 @@ $jigsass-direction: ltr !default;
 }
 
 
-/// Helper to interpret lists of four values as
+/// Contextually interpret lists of four values as
 /// `top-end-bottom-start` instead of 'top-right-bottom-left'.
+/// ---
+/// @param {String} $property
+/// @param {List} $values
+/// @param {Boolean} $rem
+///   Determines if pixel values will be converted into rems.
+/// ---
+/// @access private
+/// ---
 @mixin _jigsass-bidi-sides($property, $values, $rem) {
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
 
   @if ((length($values) == 4) and $_rtl) {
     $values: nth($values, 1) nth($values, 4) nth($values, 3) nth($values, 2);
@@ -204,7 +241,7 @@ $jigsass-direction: ltr !default;
 }
 
 
-/// Helper for direction agnostic box/text-shadow authoring
+/// Direction agnostic box/text-shadow authoring
 /// ---
 /// @param {String} $property
 ///   `text-shadow` or `box-shadow`
@@ -216,7 +253,7 @@ $jigsass-direction: ltr !default;
 ///   Determines if pixel values will be converted into rems.
 /// ---
 @mixin _jigsass-bidi-shadow($property, $values, $rem) {
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
   $_multi-shadows: list-separator($values) == comma;
 
   $shadows: null;
@@ -248,7 +285,7 @@ $jigsass-direction: ltr !default;
 ///   One or more strings to serve as background-image values.
 /// ---
 @mixin _jigsass-bidi-bgi($values) {
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
   $_values-store: ();
 
   @each $value in $values {
@@ -338,6 +375,8 @@ $jigsass-direction: ltr !default;
 /// @param {Boolean} $rem
 ///   Determines if pixel values will be converted into rems.
 /// ---
+/// @access private
+/// ---
 @mixin _jigsass-bidi-bgp($values, $rem) {
   $_positions: ();
 
@@ -360,6 +399,94 @@ $jigsass-direction: ltr !default;
 
   @if ($rem) { @include jigsass-rem(background-position, $_positions); }
   @else { background-position: $_positions; }
+}
+
+
+/// Direction agnostic transforms, with support
+/// for multiple transform functions.
+/// ---
+/// @param {String | List} $values
+///   A transform function or a list of transform functions.
+/// @param {Boolean} $rem
+///   Determines if pixel values will be converted into rems.
+/// ---
+/// @access private
+/// ---
+@mixin _jigsass-bidi-transform($values, $rem) {
+  @if (to-lower-case($jigsass-direction) == rtl) {
+    $funcs: ();
+
+    @each $func in $values {
+      @if (
+        str-index($func, 'translate(') or
+        str-index($func, 'translateX(') or
+        str-index($func, 'translate3d(') or
+        str-index($func, 'rotate(') or
+        str-index($func, 'rotateZ(') or
+        str-index($func, 'rotate3d(') or
+        str-index($func, 'skew(') or
+        str-index($func, 'skewX(')
+      ) {
+        $args-index: str-index($func, '(') + 1;
+        $args: jigsass-str-split(str-slice($func, $args-index, -2), ',');
+        $func-type: str-slice($func, 1, ($args-index - 2));
+
+        // If dealing with a `rotate3d` function,
+        // transform the `Z` axis
+        @if ($func-type == rotate3d) {
+          $z: jigsass-str-to-number(nth($args, 3));
+          $args: set-nth($args, 3, _jigsass-bidi-transform($z));
+        }
+
+        // transform the `X` axis
+        @else {
+          $x: jigsass-str-to-number(nth($args, 1));
+          $args: set-nth($args, 1, _jigsass-bidi-transform($x));
+        }
+
+        $func: $func-type + '(' + $args + ')';
+      }
+
+      $funcs: append($funcs, $func, space);
+    }
+
+    $values: $funcs;
+  }
+
+  @if ($rem) { @include jigsass-rem(transform, $values); }
+  @else { transform: $values; }
+}
+
+
+@mixin _jigsass-bidi-transform-origin($values, $rem) {
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+
+  $second: length($values) > 1;
+
+  $x-index: if(
+    index(left right, nth($values, 1)),
+    1,
+    if(
+      $second and index(left right, nth($values, 2)),
+      2,
+      if(
+        $second and index(bottom top, nth($values, 1)),
+        2,
+        if(not $second and index(bottom top, nth($values, 1)), null, 1)
+      )
+    )
+  );
+  // $y-index: if(index(bottom top, nth($values, 1)), 1, if($second, 2, null));
+
+  @if ($x-index) {
+    $x: nth($values, $x-index);
+    @if ($x == start) { $values: set-nth($values, $x-index, if($_rtl, right, left)); }
+    @else if ($x == end) { $values: set-nth($values, $x-index, if($_rtl, left, right)); }
+    @else if (unit(($x)) == '%' and $_rtl) { $values: set-nth($values, $x-index, abs($x - 100)); }
+  }
+
+  @if $rem { @include jigsass-rem(transform-origin, $values); }
+  @else { transform-origin: $values; }
 }
 
 
@@ -387,7 +514,7 @@ $jigsass-direction: ltr !default;
 /// ---
 @mixin _jigsass-bidi-bdrs($values, $rem) {
   $_has-secondary: if(list-separator($values) == comma, (), null);
-  $_rtl: $jigsass-direction == rtl;
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
 
   @if (length($values) > 4) {
     @error 'jigsass-bidi: `border-radius` can have a maximum of 4 primary or ' +
