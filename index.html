@@ -1,0 +1,522 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Jigsass-tools-bidi - v0.0.0</title><link rel="stylesheet" href="assets/css/main.css"><script type="text/javascript">WebFontConfig={google:{families:["Roboto:400,100,300,500:latin"]}},function(){var e=document.createElement("script");e.src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js",e.type="text/javascript",e.async="true";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();</script><meta name="viewport" content="width=device-width"><meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible"><!-- Open Graph tags --><meta property="og:title" content="Jigsass-tools-bidi - SassDoc"><meta property="og:type" content="website"><meta property="og:description" content="<p>Painless bidirectional style authoring</p>
+"><!-- Thanks to Sass-lang.com for the icons --><link href="assets/images/favicon.png" rel="shortcut icon"></head><body><aside class="sidebar" role="nav"><div class="sidebar__header"><img class="sidebar__logo" src="assets/images/favicon.png"></div><div class="sidebar__body"><button type="button" class="btn-toggle js-btn-toggle" data-alt="Open all">Close all</button><p class="sidebar__item sidebar__item--heading" data-slug="bidi"><a href="#bidi">bidi</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="bidi-variable"><a href="#bidi-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-name="jigsass-direction" data-type="variable"><a href="#variable-jigsass-direction">jigsass-direction</a></li><li class="sidebar__item sassdoc__item" data-name="jigsass-bidi-rem-default" data-type="variable"><a href="#variable-jigsass-bidi-rem-default">jigsass-bidi-rem-default</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="bidi-mixin"><a href="#bidi-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-name="jigsass-bidi" data-type="mixin"><a href="#mixin-jigsass-bidi">jigsass-bidi</a></li><li class="sidebar__item sassdoc__item" data-name="jigsass-bidi-direction" data-type="mixin"><a href="#mixin-jigsass-bidi-direction">jigsass-bidi-direction</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-bdrs" data-type="mixin"><a href="#mixin-_jigsass-bidi-bdrs">_jigsass-bidi-bdrs</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi" data-type="mixin"><a href="#mixin-_jigsass-bidi">_jigsass-bidi</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-simple" data-type="mixin"><a href="#mixin-_jigsass-bidi-simple">_jigsass-bidi-simple</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-sides" data-type="mixin"><a href="#mixin-_jigsass-bidi-sides">_jigsass-bidi-sides</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-shadow" data-type="mixin"><a href="#mixin-_jigsass-bidi-shadow">_jigsass-bidi-shadow</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-bgi" data-type="mixin"><a href="#mixin-_jigsass-bidi-bgi">_jigsass-bidi-bgi</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-bgp" data-type="mixin"><a href="#mixin-_jigsass-bidi-bgp">_jigsass-bidi-bgp</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-transform" data-type="mixin"><a href="#mixin-_jigsass-bidi-transform">_jigsass-bidi-transform</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-transform-origin" data-type="mixin"><a href="#mixin-_jigsass-bidi-transform-origin">_jigsass-bidi-transform-origin</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-direction" data-type="mixin"><a href="#mixin-_jigsass-bidi-direction">_jigsass-bidi-direction</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="bidi-function"><a href="#bidi-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-bgp" data-type="function"><a href="#function-_jigsass-bidi-bgp">_jigsass-bidi-bgp</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-transform" data-type="function"><a href="#function-_jigsass-bidi-transform">_jigsass-bidi-transform</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-get-side" data-type="function"><a href="#function-_jigsass-get-side">_jigsass-get-side</a></li><li class="sidebar__item sassdoc__item" data-name="_jigsass-bidi-shadow" data-type="function"><a href="#function-_jigsass-bidi-shadow">_jigsass-bidi-shadow</a></li></ul></div></div></aside><article class="main" role="main"><header class="header" role="banner"><div class="container"><h1 class="header__title">Jigsass-tools-bidi - 0.0.0</h1><div class="sassdoc__searchbar searchbar"><label for="js-search-input" class="visually-hidden">Search</label><div class="searchbar__form" id="js-search"><input name="search" type="search" class="searchbar__field" autocomplete="off" autofocus id="js-search-input" placeholder="Search"><ul class="searchbar__suggestions" id="js-search-suggestions"></ul></div></div></div></header><section class="main__section"><div class="container"><h1 id="jigsass-tools-bidi">JigSass Tools Bidi</h1><p><a href="https://npmjs.org/package/jigsass-tools-bidi"><img src="https://badge.fury.io/js/jigsass-tools-bidi.svg" alt="NPM version"></a> <a href="https://travis-ci.org/TxHawks/jigsass-tools-bidi"><img src="https://travis-ci.org/TxHawks/jigsass-tools-bidi.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/TxHawks/jigsass-tools-bidi"><img src="https://david-dm.org/TxHawks/jigsass-tools-bidi.svg?theme=shields.io" alt="Dependency Status"></a></p><blockquote><p>Painless bidirectional style authoring</p></blockquote><h2 id="installation">Installation</h2><p>Using npm:</p><pre><code class="lang-sh">npm i -S jigsass-tools-bidi
+</code></pre><h2 id="usage">Usage</h2><pre><code class="lang-scss">@import &#39;path/to/jigsass-tools-selectors/scss/index&#39;;
+</code></pre><p>Managing bi-directionality in CSS can be an annoying, time consuming and error-prone task.</p><p>JigSass Bidi was written to make this process as simple as possible, without sacrificing flxibilty. It eases the process of writing clean and maintainable bidirectional style sheets by using a single mixin to handle transformation of all direction-related styles (values and/or properties) by automatically interpreting directions as <code>start</code>`end<code>instead of</code>left<code>\</code>right`.</p><h3 id="caveats">Caveats</h3><ul><li>The <code>background</code> shorthand is not supported. Set the <code>background-image</code> and <code>background-position</code> properties directly.</li><li>When multi-dimensional lists are passsed to to <code>$values</code> argument (e.g., to border-radius, box-shadow, text-shadow or background-position), They should be passed as space separated lists inside a comma-separated list.</li><li>The <code>X</code> argument of <code>backgrond-position</code> and <code>transform-origin</code> can be transformed only if set to <code>start</code>, <code>end</code> or a number in percentage (<code>%</code>). transforming non-relative widths requires knowledge of the container&#39;s dimensions.</li></ul><p><strong>License:</strong> MIT</p></div></section><section class="main__section"><h1 class="main__heading" id="bidi"><div class="container">bidi</div></h1><section class="main__sub-section" id="bidi-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="variable-jigsass-direction"><h3 class="item__heading"><a class="item__name" href="#variable-jigsass-direction">jigsass-direction</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$jigsass-direction: ltr !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The direction in which styles should be outputted</p></div><h3 class="item__sub-heading">Type</h3><p><code>String</code></p><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#function-_jigsass-get-side"><code>_jigsass-get-side</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#function-_jigsass-bidi-bgp"><code>_jigsass-bidi-bgp</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-jigsass-bidi"><code>jigsass-bidi</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-jigsass-bidi-direction"><code>jigsass-bidi-direction</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-direction"><code>_jigsass-bidi-direction</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-simple"><code>_jigsass-bidi-simple</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-sides"><code>_jigsass-bidi-sides</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-shadow"><code>_jigsass-bidi-shadow</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bgi"><code>_jigsass-bidi-bgi</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-transform"><code>_jigsass-bidi-transform</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-transform-origin"><code>_jigsass-bidi-transform-origin</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bdrs"><code>_jigsass-bidi-bdrs</code></a></li></ul></section><section class="main__item container item" id="variable-jigsass-bidi-rem-default"><h3 class="item__heading"><a class="item__name" href="#variable-jigsass-bidi-rem-default">jigsass-bidi-rem-default</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$jigsass-bidi-rem-default: if(
+  global-variable-exists($jigsass-default-unit),
+  $jigsass-default-unit == rem,
+  false
+) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Determines if <code>jigsass-bidi</code> will convert pixel values to <code>rem</code> by default when possible</p></div><h3 class="item__sub-heading">Type</h3><p><code>Boolean</code></p></section></section><section class="main__sub-section" id="bidi-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="mixin-jigsass-bidi"><h3 class="item__heading"><a class="item__name" href="#mixin-jigsass-bidi">jigsass-bidi</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin jigsass-bidi($property, $values, $bps: false, $rem: $jigsass-bidi-rem-default) { 
+  @if (not index(ltr rtl, to-lower-case($jigsass-direction))) {
+    @error &#39;jigsass-bidi: `$jigsass-direction` must be either `ltr` or `rtl`, &#39; +
+      &#39;but it is set to #{$jigsass-direction} (When setting #{$property}, #{$values}).&#39;;
+  }
+
+  // Dependencies
+  @if ($bps == auto and not function-exists(_jigsass-merge-sizes)) {
+    @error &#39;`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` for setting &#39; +
+      &#39;rhythm-unit breakpoints. Please import it.&#39;
+  }
+  @if ($rem and not mixin-exists(jigsass-rem)) {
+    @error &#39;`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` &#39; +
+      &#39;for converting pixel values to rem. Please import it.&#39;
+  }
+
+  @if ($bps and mixin-exists(jigsass-mq)) {
+    $_bps: if(
+      $bps == auto,
+      map-keys(map-get(_jigsass-merge-sizes(), rhythm-unit)),
+      if(
+        $bps == all,
+        map-keys(map-get($jigsass-breakpoints, lengths)),
+        $bps
+      )
+    );
+
+    @each $bp in $_bps {
+      @include jigsass-mq($bp) {
+        @include _jigsass-bidi($property, $values, $rem);
+      }
+    }
+  }
+
+  // Generate in current active breakpoint
+  @else {
+    @if ($bps and not mixin-exists(jigsass-mq)) {
+      @warn &#39;jigsass-rem: Can\&#39;t generate media queries - the `jigsass-mq` mixin does not exist.&#39; +
+        &#39; Generating output outside a media query&#39;;
+    }
+
+    @include _jigsass-bidi($property, $values, $rem);
+  }
+ }" data-collapsed="@mixin jigsass-bidi($property, $values, $bps: false, $rem: $jigsass-bidi-rem-default) { ... }"><code>@mixin jigsass-bidi($property, $values, $bps: false, $rem: $jigsass-bidi-rem-default) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction-agnostic styles</p><p>Ease the process of writing clean and maintainable bidirectional stylesheets by using a single mixin to handle transformation of all direction-related styles (values and/or properties) by interpreting directions as <code>start</code>`end<code>instead of</code>left<code>\</code>right`.</p><p>Whether <code>start</code> is considered to be <code>left</code> or <code>right</code> depends on the direction set in <code>$jigsass-direction</code>.</p><p><strong>Caveats</strong> (See Examples bellow):</p><ul><li>The <code>background</code> shorthand is not supported. Set the <code>background-image</code> and <code>background-position</code> properties directly.</li><li>When multi-dimensional lists are passsed to to <code>$values</code> argument (e.g., to border-radius, box-shadow, text-shadow or background-position), They should be passed as space separated lists inside a comma-separated list.</li><li>The <code>X</code> argument of <code>backgrond-position</code> and <code>transform-origin</code> can be transformed only if set to <code>start</code>, <code>end</code> or a number in percentage (<code>%</code>). transforming non-relative widths requires knowledge of the container&#39;s dimensions.</li></ul></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$property</code></th><td data-label="desc">&mdash;<span class="visually-hidden">none</span></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>Values to process</p></td><td data-label="type"><code>String</code> or <code>Number</code> or <code>List</code> or <code>Color</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$bps</code></th><td data-label="desc"><p>list of breakpoints to output the converted values in. <code>auto</code> iterates over the breakpoints defined in the <code>rhythm-unit</code> key of the sizes palette (from <code>jigsass-tools-typography</code>). <code>all</code> iterates over all length breakpoints. Only supports min-width media-queries.</p></td><td data-label="type"><code>String</code> or <code>List</code> or <code>Boolean</code></td><td data-label="default"><code>false</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$rem</code></th><td data-label="desc"><p>Indicates if pixel values should be converted into rems</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default"><code>$jigsass-bidi-rem-default</code></td></tr></tbody></table><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>jigsass-bidi: <code>$jigsass-direction</code> must be either <code>ltr</code> or <code>rtl</code>,</p></li><li><p><code>jigsass-tools-bidi</code> has a dependency on <code>jigsass-tools-typography</code> for setting</p></li><li><p><code>jigsass-tools-bidi</code> has a dependency on <code>jigsass-tools-typography</code></p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>Direction (start to end)</p></div><pre class="example__code language-scss"><code>@include jigsass-bidi(diraction, ste); // -&gt; ltr-mode: direction: ltr;
+                                       //    rtl-mode: direction: rtl;</code></pre></div><div class="item__example example"><div class="example__description"><p>Direction (end to start)</p></div><pre class="example__code language-scss"><code>@include jigsass-bidi(diraction, ets); // -&gt; ltr-mode: direction: rtl;
+                                       //    rtl-mode: direction: ltr;</code></pre></div><div class="item__example example"><div class="example__description"><p>start/end property</p></div><pre class="example__code language-scss"><code>@include jigsass-bidi(margin-start, 6px); // -&gt; ltr-mode: margin-left: 6px;
+                                          //    rtl-mode: margin-right: 6px;</code></pre></div><div class="item__example example"><div class="example__description"><p>start/end value</p></div><pre class="example__code language-scss"><code>@include jigsass-bidi(float, end); // -&gt; ltr-mode: float: right;
+                                   //    rtl-mode: float: left;</code></pre></div><div class="item__example example"><div class="example__description"><p>List of numbers</p></div><pre class="example__code language-scss"><code>@include jigsass-bidi(margin, 0 8px 6px 12px); // -&gt; ltr-mode: margin: 0 8px 6px 12px;
+                                               //    rtl-mode: margin: 0 12px 6px 8px;</code></pre></div><div class="item__example example"><div class="example__description"><p>List of lists</p></div><pre class="example__code language-scss"><code>@include jigsass-bidi(
+  border-radius,
+  (8px 12px 6px, 12px 14px)
+ ); // -&gt; ltr-mode: border-radius: 8px 12px 16px / 12px 14px;
+    // -&gt; rtl-mode: border-radius: 12px 8px 12px 16px / 14px 14px;</code></pre></div></section><section class="main__item container item" id="mixin-jigsass-bidi-direction"><h3 class="item__heading"><a class="item__name" href="#mixin-jigsass-bidi-direction">jigsass-bidi-direction</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin jigsass-bidi-direction($direction) { 
+  // Locally cache current direction from global scope.
+  $_direction-cache: $jigsass-direction;
+
+  // Set temporary direction in global scope.
+  $jigsass-direction: $direction !global;
+
+  @content;
+
+  // Reset direction in global scope.
+  $jigsass-direction: $_direction-cache !global;
+ }" data-collapsed="@mixin jigsass-bidi-direction($direction) { ... }"><code>@mixin jigsass-bidi-direction($direction) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Temporarily set the direction for the context of the mixin&#39;s execution.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc">&mdash;<span class="visually-hidden">none</span></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Content</h3><p>This mixin allows extra content to be passed (through the <code>@content</code> directive).<h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>scss input</p></div><pre class="example__code language-scss"><code>$jigsass-direction: ltr;
+
+.ltr-component {
+  @include jigsass-bidi(margin-start, 12px);
+}
+
+.rtl-component {
+  @include jigsass-bidi-direction(rtl) {
+    @include jigsass-bidi(margin-start, 12px);
+  }
+}</code></pre></div><div class="item__example example"><div class="example__description"><p>CSS output</p></div><pre class="example__code language-css"><code>.ltr-component {
+  margin-left: 12px;
+}
+
+.rtl-component {
+  margin-right: 12px;
+}</code></pre></div></p></section><section class="main__item container item" id="mixin-_jigsass-bidi-bdrs"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-bdrs">_jigsass-bidi-bdrs</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-bdrs($values, $rem) { 
+  $_has-secondary: if(list-separator($values) == comma, (), null);
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+
+  @if (length($values) &gt; 4) {
+    @error &#39;jigsass-bidi: `border-radius` can have a maximum of 4 primary or &#39; +
+      &#39;secondary values, you are trying to pass #{length($values)}. Are you &#39; +
+      &#39;trying to set secondary (vertical) radii?&#39;;
+  }
+  @if ($_has-secondary and length($values) &gt; 2) {
+    @error &#39;jigsass-bidi: `border-radius` can have a maximum of 2 **sets** of &#39; +
+      &#39;of 4 values, but you are trying to set #{length($values)}.&#39;;
+  }
+  @if ($_has-secondary) {
+    @each $set in $values {
+      @if (length($set) &gt; 4) {
+        @error &#39;jigsass-bidi: `border-radius` accepts a maximum of 4 primary or &#39; +
+          &#39;secondary values, you are trying to pass #{length($set)}.&#39;;
+      }
+    }
+  }
+
+  $_primary: if($_has-secondary, nth($values, 1), $values);
+  $_secondary: if($_has-secondary, nth($values, 2), null);
+
+  $_p-length: length($_primary);
+  $_s-length: length($_secondary);
+
+  $top-start: nth($_primary, 1);
+  $top-end: if($_p-length &gt; 1, nth($_primary, 2), false);
+  $bottom-end: if($_p-length &gt; 2, nth($_primary, 3), false);
+  $bottom-start: if($_p-length &gt; 3, nth($_primary, 4), false);
+
+  $top-start-v: if($_secondary, nth($_secondary, 1), false);
+  $top-end-v: if($_s-length &gt; 1, nth($_secondary, 2), false);
+  $bottom-end-v: if($_s-length &gt; 2, nth($_secondary, 3), false);
+  $bottom-start-v: if($_s-length &gt; 3, nth($_secondary, 4), false);
+
+  // If no valid value is provided
+  @if (index(null &#39;&#39; false, $values)) {
+    border-radius: null;
+  }
+
+  @else {
+    $ordered-values: if(
+      $top-end,
+      if($_rtl, $top-end $top-start, $top-start $top-end),
+      $top-start
+    );
+
+    $bottom-values: ();
+
+    @if ($bottom-end) {
+      $bottom-values: if(
+        $_rtl,
+        ($bottom-start or $top-end) $bottom-end,
+        $bottom-end ($bottom-start or null)
+      );
+
+      @each $radius in $bottom-values {
+        $ordered-values: append($ordered-values, $radius, space);
+      }
+    }
+
+    @if ($_secondary) {
+      $top-values-v: if(
+        $top-end-v,
+        if($_rtl, $top-end-v $top-start-v, $top-start-v $top-end-v),
+        $top-start-v
+      );
+
+      $bottom-values-v: ();
+      @if ($bottom-end-v) {
+        $bottom-values-v: if(
+          $_rtl,
+          ($bottom-start-v or $top-end-v) $bottom-end-v,
+          $bottom-end-v ($bottom-start-v or null)
+        );
+      }
+
+      $ordered-values: append($ordered-values, unquote(&#39; / &#39;));
+
+      @each $radius in $top-values-v {
+        $ordered-values: append($ordered-values, $radius, space);
+      }
+
+      @each $radius in $bottom-values-v {
+        $ordered-values: append($ordered-values, $radius, space);
+      }
+    }
+
+    @if ($rem) { @include jigsass-rem(border-radius, $ordered-values); }
+
+    @else { border-radius: $ordered-values; }
+  }
+ }" data-collapsed="@mixin _jigsass-bidi-bdrs($values, $rem) { ... }"><code>@mixin _jigsass-bidi-bdrs($values, $rem) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction agnostic border radius</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>Instead of being processed left to right, values are processed <code>top-start</code>, <code>top-end</code>, <code>bottom-end</code>, <code>bottom-start</code>. with support for primary and optionally secondary border-radius values for border-radius.</p><p>When secondary values are set, each <em>set</em> of radii must be a space-separated list inside a comma-separated list.</p><p>For example, to get: &#39;&#39;&#39;css border-radius: 12px 6px / 18px; &#39;&#39;&#39;</p><p>The <code>$values</code> argument should be passed as: &#39;&#39;&#39;scss $values: (12px 6px, 18px) &#39;&#39;&#39;</p></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$rem</code></th><td data-label="desc"><p>Determines if pixel values will be converted into rems.</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>jigsass-bidi: <code>border-radius</code> can have a maximum of 4 primary or</p></li><li><p>jigsass-bidi: <code>border-radius</code> can have a maximum of 2 <strong>sets</strong> of</p></li><li><p>jigsass-bidi: <code>border-radius</code> accepts a maximum of 4 primary or</p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi">_jigsass-bidi</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi() { 
+  // Simple string transformations
+  @if (
+    (type-of($values) == string and index(start end, $values)) or
+    str-index($property, start) or
+    str-index($property, end)
+  ) {
+    @include _jigsass-bidi-simple($property, $values, $rem);
+  }
+  // Direction
+  @else if ($property == direction) {
+    @include _jigsass-bidi-direction($values);
+  }
+
+  // Border radius
+  @else if ($property == border-radius) {
+    @include _jigsass-bidi-bdrs($values, $rem);
+  }
+
+  // background-image
+  @else if ($property == background-image) {
+    @include _jigsass-bidi-bgi($values);
+  }
+
+  // background-position
+  @else if ($property == background-position) {
+    @include _jigsass-bidi-bgp($values, $rem);
+  }
+
+  // box/test-shadow
+  @else if (index(box-shadow text-shadow, $property)) {
+    @include _jigsass-bidi-shadow($property, $values, $rem);
+  }
+
+  // transform
+  @else if ($property == transform) {
+    @include _jigsass-bidi-transform($values, $rem);
+  }
+
+  // transform-origin
+  @else if ($property == transform-origin) {
+    @include _jigsass-bidi-transform-origin($values, $rem);
+  }
+
+  @else {
+    // List of numbers
+    $_list-of-numbers: true;
+    @if (type-of($values) == list) {
+
+      @each $value in $values {
+        $_list-of-numbers: $_list-of-numbers and type-of($value) == number;
+      }
+    }
+
+    @if ($_list-of-numbers and type-of($values) == list) {
+      @include _jigsass-bidi-sides($property, $values, $rem);
+    }
+
+    // Non direction related, just leave as is.
+    @else {
+      @if ($rem) { @include jigsass-rem($property, $values); }
+
+      @else { #{$property}: $values; }
+    }
+  }
+ }" data-collapsed="@mixin _jigsass-bidi() { ... }"><code>@mixin _jigsass-bidi() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A utility mixin to call the correct transformer mixins based on the property or values that were passed.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-simple"><code>_jigsass-bidi-simple</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-direction"><code>_jigsass-bidi-direction</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bdrs"><code>_jigsass-bidi-bdrs</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bgi"><code>_jigsass-bidi-bgi</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bgp"><code>_jigsass-bidi-bgp</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-shadow"><code>_jigsass-bidi-shadow</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-transform"><code>_jigsass-bidi-transform</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-transform-origin"><code>_jigsass-bidi-transform-origin</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-sides"><code>_jigsass-bidi-sides</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-jigsass-bidi"><code>jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-simple"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-simple">_jigsass-bidi-simple</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-simple($property, $values) { 
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+
+  $_prop: if(
+    str-index($property, start),
+    jigsass-str-replace($property, start, if($_rtl, right, left), $match-case: false),
+    if(
+      str-index($property, end),
+      jigsass-str-replace($property, end, if($_rtl, left, right), $match-case: false),
+      $property
+    )
+  );
+  $_value: if(index(start end, $values), _jigsass-get-side($values), $values);
+
+  @if ($rem) { @include jigsass-rem($_prop, $_value); }
+
+  @else { #{$_prop}: $_value; }
+ }" data-collapsed="@mixin _jigsass-bidi-simple($property, $values) { ... }"><code>@mixin _jigsass-bidi-simple($property, $values) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Contextually convert <code>start</code> and <code>end</code> into <code>left</code> or <code>right.</code></p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$property</code></th><td data-label="desc">&mdash;<span class="visually-hidden">none</span></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc">&mdash;<span class="visually-hidden">none</span></td><td data-label="type"><code>Number</code> or <code>String</code> or <code>List</code> or <code>Color</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#function-_jigsass-get-side"><code>_jigsass-get-side</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-sides"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-sides">_jigsass-bidi-sides</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-sides($property, $values, $rem) { 
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+
+  @if ((length($values) == 4) and $_rtl) {
+    $values: nth($values, 1) nth($values, 4) nth($values, 3) nth($values, 2);
+  }
+
+  @if ($rem) { @include jigsass-rem($property, $values); }
+
+  @else { #{$property}: $values; }
+ }" data-collapsed="@mixin _jigsass-bidi-sides($property, $values, $rem) { ... }"><code>@mixin _jigsass-bidi-sides($property, $values, $rem) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Contextually interpret lists of four values as <code>top-end-bottom-start</code> instead of &#39;top-right-bottom-left&#39;.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$property</code></th><td data-label="desc">&mdash;<span class="visually-hidden">none</span></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc">&mdash;<span class="visually-hidden">none</span></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$rem</code></th><td data-label="desc"><p>Determines if pixel values will be converted into rems.</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-shadow"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-shadow">_jigsass-bidi-shadow</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-shadow($property, $values, $rem) { 
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+  $_multi-shadows: list-separator($values) == comma;
+
+  $shadows: null;
+
+  @if ($_rtl) {
+    $shadows: ();
+
+    @if ($_multi-shadows) {
+      @each $shadow in $values {
+        $shadows: append($shadows, _jigsass-bidi-shadow($shadow));
+      }
+    }
+
+    $shadows: append($shadows, _jigsass-bidi-shadow($values));
+  }
+
+
+  @if ($rem) { @include jigsass-rem($property, $shadows or $values); }
+
+  @else { #{$property}: $shadows or $values; }
+ }" data-collapsed="@mixin _jigsass-bidi-shadow($property, $values, $rem) { ... }"><code>@mixin _jigsass-bidi-shadow($property, $values, $rem) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction agnostic box/text-shadow authoring</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$property</code></th><td data-label="desc"><p><code>text-shadow</code> or <code>box-shadow</code></p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>A space-separated list of box-shadow values, or a comma-separated list of space-separated lists of box-shadow values</p></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$rem</code></th><td data-label="desc"><p>Determines if pixel values will be converted into rems.</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#function-_jigsass-bidi-shadow"><code>_jigsass-bidi-shadow</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-bgi"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-bgi">_jigsass-bidi-bgi</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-bgi($values) { 
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+  $_values-store: ();
+
+  @each $value in $values {
+    @if (str-index($value, &#39;linear-gradient(&#39;)) {
+      @if (str-index($value, &#39; end&#39;) or str-index($value, &#39; start&#39;)) {
+        @if (str-index($value, &#39; end&#39;)) {
+          $value: jigsass-str-replace($value, &#39; end&#39;, if($_rtl, &#39; left&#39;, &#39; right&#39;));
+        }
+        @if (str-index($value, &#39; start&#39;)) {
+          $value: jigsass-str-replace($value, &#39; start&#39;, if($_rtl, &#39; right&#39;, &#39; left&#39;));
+        }
+      }
+
+      @else if ($_rtl) {
+        $value: str-slice($value, str-index($value, &#39;linear-gradient(&#39;) + 16);
+        $value: jigsass-str-trim($value, true, false);
+
+        $_angle: false;
+
+        @if (str-index($value, deg)) {
+          $_angle: map-merge((), (type: deg, index: str-index($value, deg)));
+        }
+        @else if (str-index($value, turn)) {
+          $_angle: map-merge((), (type: turn, index: str-index($value, turn)));
+        }
+        @else if (str-index($value, grad)) {
+          $_angle: map-merge((), (type: grad, index: str-index($value, grad)));
+        }
+        @else if (str-index($value, rad)) {
+          $_angle: map-merge((), (type: rad, index: str-index($value, rad)));
+        }
+
+
+        @if ($_angle) {
+          $_indx: map-get($_angle, index);
+          $_type: map-get($_angle, type);
+          $_end: $_indx - 1;
+
+          $num-str: str-slice($value, 1, $_end);
+
+          $num: jigsass-str-to-number($num-str);
+
+          @if ($_type == deg) { $num: abs($num - 360); }
+          @else if ($_type == turn) {
+            $num: abs($num - 1);
+          }
+          @else if ($_type == grad) { $num: abs($num - 400); }
+
+          // When `rad`
+          @else { $num: abs($num - 6.2831853072); }
+
+          $value: unquote(&#39;linear-gradient(&#39;) + $num + str-slice($value, $_end + 1);
+        }
+      }
+    }
+
+    $_values-store: append($_values-store, $value, comma);
+  }
+
+  background-image: $_values-store or $values;
+ }" data-collapsed="@mixin _jigsass-bidi-bgi($values) { ... }"><code>@mixin _jigsass-bidi-bgi($values) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Helper to transform linear gradients as if they were written in a direction-agnostic manner (<code>start-to-end</code> and clockwise for ltr, counter-clockwise for rtl).</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>One or more strings to serve as background-image values.</p></td><td data-label="type"><code>String</code> or <code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-bgp"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-bgp">_jigsass-bidi-bgp</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-bgp($values, $rem) { 
+  $_positions: ();
+
+  $_multi-bgs: list-separator($values) == comma;
+
+  @each $value in $values {
+    @if (length($value) &gt; 2) {
+      @error &#39;jigsass-bidi: `background-position` only takes two arguments per&#39; +
+        &#39;position, but you are trying to pass #{length($value)}. Did you mean &#39; +
+        &#39;to specify multiple positions?&#39;;
+    }
+  }
+
+  @if ($_multi-bgs) {
+    @each $position in $values {
+      $_positions: append($_positions, _jigsass-bidi-bgp($position), comma);
+    }
+  }
+  @else { $_positions: append($_positions, _jigsass-bidi-bgp($values), comma); }
+
+  @if ($rem) { @include jigsass-rem(background-position, $_positions); }
+  @else { background-position: $_positions; }
+ }" data-collapsed="@mixin _jigsass-bidi-bgp($values, $rem) { ... }"><code>@mixin _jigsass-bidi-bgp($values, $rem) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction agnostic background-position</p><p>transforms background-position values in a <code>start-to-end</code>, direction-agnostic manner</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>Only numbers specified in percentage units can be transformed, as other units require knowledge of the container&#39;s width.</p><p>For multiple positions (in cases of multiple background images), each <em>set</em> of position values must be a space-separated list inside a comma-separated list.</p><p>For example, to get: &#39;&#39;&#39;css background-position: 25% 50%, left &#39;&#39;&#39;</p><p>The <code>$values</code> argument should be passed as: &#39;&#39;&#39;scss $values: (25% 50%, left) &#39;&#39;&#39;</p></td><td data-label="type"><code>String</code> or <code>Number</code> or <code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$rem</code></th><td data-label="desc"><p>Determines if pixel values will be converted into rems.</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>jigsass-bidi: <code>background-position</code> only takes two arguments per</p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#function-_jigsass-bidi-bgp"><code>_jigsass-bidi-bgp</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-transform"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-transform">_jigsass-bidi-transform</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-transform($values, $rem) { 
+  @if (to-lower-case($jigsass-direction) == rtl) {
+    $funcs: ();
+
+    @each $func in $values {
+      @if (
+        str-index($func, &#39;translate(&#39;) or
+        str-index($func, &#39;translateX(&#39;) or
+        str-index($func, &#39;translate3d(&#39;) or
+        str-index($func, &#39;rotate(&#39;) or
+        str-index($func, &#39;rotateZ(&#39;) or
+        str-index($func, &#39;rotate3d(&#39;) or
+        str-index($func, &#39;skew(&#39;) or
+        str-index($func, &#39;skewX(&#39;)
+      ) {
+        $args-index: str-index($func, &#39;(&#39;) + 1;
+        $args: jigsass-str-split(str-slice($func, $args-index, -2), &#39;,&#39;);
+        $func-type: str-slice($func, 1, ($args-index - 2));
+
+        // If dealing with a `rotate3d` function,
+        // transform the `Z` axis
+        @if ($func-type == rotate3d) {
+          $z: jigsass-str-to-number(nth($args, 3));
+          $args: set-nth($args, 3, _jigsass-bidi-transform($z));
+        }
+
+        // transform the `X` axis
+        @else {
+          $x: jigsass-str-to-number(nth($args, 1));
+          $args: set-nth($args, 1, _jigsass-bidi-transform($x));
+        }
+
+        $func: $func-type + &#39;(&#39; + $args + &#39;)&#39;;
+      }
+
+      $funcs: append($funcs, $func, space);
+    }
+
+    $values: $funcs;
+  }
+
+  @if ($rem) { @include jigsass-rem(transform, $values); }
+  @else { transform: $values; }
+ }" data-collapsed="@mixin _jigsass-bidi-transform($values, $rem) { ... }"><code>@mixin _jigsass-bidi-transform($values, $rem) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction agnostic transforms, with support for multiple transform functions.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>A transform function or a list of transform functions.</p></td><td data-label="type"><code>String</code> or <code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$rem</code></th><td data-label="desc"><p>Determines if pixel values will be converted into rems.</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#function-_jigsass-bidi-transform"><code>_jigsass-bidi-transform</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-transform-origin"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-transform-origin">_jigsass-bidi-transform-origin</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-transform-origin() { 
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+
+  $second: length($values) &gt; 1;
+
+  $x-index: if(
+    index(left right, nth($values, 1)),
+    1,
+    if(
+      $second and index(left right, nth($values, 2)),
+      2,
+      if(
+        $second and index(bottom top, nth($values, 1)),
+        2,
+        if(not $second and index(bottom top, nth($values, 1)), null, 1)
+      )
+    )
+  );
+
+  @if ($x-index) {
+    $x: nth($values, $x-index);
+    @if ($x == start) { $values: set-nth($values, $x-index, if($_rtl, right, left)); }
+    @else if ($x == end) { $values: set-nth($values, $x-index, if($_rtl, left, right)); }
+    @else if (unit(($x)) == &#39;%&#39; and $_rtl) { $values: set-nth($values, $x-index, abs($x - 100)); }
+  }
+
+  @if $rem { @include jigsass-rem(transform-origin, $values); }
+  @else { transform-origin: $values; }
+ }" data-collapsed="@mixin _jigsass-bidi-transform-origin() { ... }"><code>@mixin _jigsass-bidi-transform-origin() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction agnostic transform-origin</p><p>transform transform-origin as if it were written start-to-end instead of right-to-left. <strong>caveat:</strong> Length values can only be transformed if they are in percentage, because transforming non-relative values requires knowledge of the container&#39;s dimensions.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section><section class="main__item container item" id="mixin-_jigsass-bidi-direction"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#mixin-_jigsass-bidi-direction">_jigsass-bidi-direction</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin _jigsass-bidi-direction($direction) { 
+  @if (not index(ltr rtl ste ets, $direction)) {
+    @error &#39;jigsass-bidi: #{$direction} is not a valid direction value. &#39; +
+      &#39;Try `ste` (contextual - start-to-end), `ets` (contextual - end-to-start)&#39; +
+      &#39;`ltr` (absolute, will not be converted) or `rtl` (absolute, will not be converted).&#39;;
+  }
+
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+
+  @if ($direction == ste) { $direction: if($_rtl, rtl, ltr); }
+  @if ($direction == ets) { $direction: if($_rtl, ltr, rtl); }
+
+  direction: $direction;
+ }" data-collapsed="@mixin _jigsass-bidi-direction($direction) { ... }"><code>@mixin _jigsass-bidi-direction($direction) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Direction agnostic <code>direction</code></p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p><code>ste</code> = start-to-end, <code>ets</code> = end-to-start. <code>rtl</code> and <code>ltr</code> will be printed as is, without trasformation, regardless of the JigSass direction context</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>jigsass-bidi: #{$direction} is not a valid direction value.</p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi"><code>_jigsass-bidi</code></a></li></ul></section></section><section class="main__sub-section" id="bidi-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="function-_jigsass-bidi-bgp"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#function-_jigsass-bidi-bgp">_jigsass-bidi-bgp</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function _jigsass-bidi-bgp() { 
+  $_rtl: to-lower-case($jigsass-direction) == rtl;
+  $_value-store: ();
+
+  @for $i from 1 through length($position) {
+    $_value: nth($position, $i);
+    $_type: type-of($_value);
+
+    @if (index(start end, $_value)) {
+      @if ($i != 1) {
+        @error &#39;jigsass-bidi: horizontal position must be passed before vertical &#39; +
+          &#39;(When trying to set #{$position}).&#39;
+      }
+      $_sides: (start: if($_rtl, right, left), end: if($_rtl, left, right));
+
+      $_value: map-get($_sides, $_value);
+    }
+
+    @else if ($_type == number and $_rtl) {
+      @if ($i == 1 and unit($_value) == &#39;%&#39;) {
+        $_value: if(
+          length($position) == 1,
+          abs($_value - 100%) $_value,
+          abs($_value - 100%)
+        );
+      }
+    }
+
+    $_value-store: append($_value-store, $_value);
+  }
+
+  @return $_value-store;
+ }" data-collapsed="@function _jigsass-bidi-bgp() { ... }"><code>@function _jigsass-bidi-bgp() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Utility function to transform background-position values in a <code>start-to-end</code>, direction-agnostic manner</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>jigsass-bidi: horizontal position must be passed before vertical</p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bgp"><code>_jigsass-bidi-bgp</code></a></li></ul></section><section class="main__item container item" id="function-_jigsass-bidi-transform"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#function-_jigsass-bidi-transform">_jigsass-bidi-transform</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function _jigsass-bidi-transform($value) { 
+  $unit: unit($value);
+
+  @if ($unit == px) { @return $value * -1; }
+  @if ($unit == deg) { @return abs($value - 360); }
+  @if ($unit == turn) { @return abs($value - 1); }
+  @if ($unit == grad) { @return abs($value - 400); }
+  @if ($unit == rad) { @return abs($value - 6.2831853072); }
+ }" data-collapsed="@function _jigsass-bidi-transform($value) { ... }"><code>@function _jigsass-bidi-transform($value) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A helper to convert direction agnostic transform functions&#39; arguments</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$value</code></th><td data-label="desc"><p>The value to transform</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Number</code></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-transform"><code>_jigsass-bidi-transform</code></a></li></ul></section><section class="main__item container item" id="function-_jigsass-get-side"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#function-_jigsass-get-side">_jigsass-get-side</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function _jigsass-get-side($side) { 
+  @if (not index(start end, to-lower-case($side))) {
+    @error &#39;_jigsass-get-side: `$side` may only be `start` or `end`, but you passed `#{$side}`&#39;;
+  }
+
+  @if (to-lower-case($jigsass-direction) == ltr) {
+    @return if(to-lower-case($side) == start, left, right);
+  }
+
+  @return if(to-lower-case($side) == start, right, left);
+ }" data-collapsed="@function _jigsass-get-side($side) { ... }"><code>@function _jigsass-get-side($side) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Translate <code>start</code> or <code>end</code> into either <code>left</code> or <code>right</code>, depending on the current value of <code>$jigsass-direction</code>;</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$side</code></th><td data-label="desc"><p>The side to translate into <code>left</code> or <code>right</code>. Can be <code>start</code> or <code>end</code>.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>The translated value of <code>$side</code>. <code>left</code> or <code>right</code></p></div><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>_jigsass-get-side: <code>$side</code> may only be <code>start</code> or <code>end</code>, but you passed <code>#{$side}</code></p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-simple"><code>_jigsass-bidi-simple</code></a></li></ul></section><section class="main__item container item" id="function-_jigsass-bidi-shadow"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#function-_jigsass-bidi-shadow">_jigsass-bidi-shadow</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function _jigsass-bidi-shadow($values) { 
+  $h-offset-index: if(type-of(nth($values, 1)) == string, 2, 1);
+
+  @return set-nth(
+    $values,
+    $h-offset-index,
+    (-1 * nth($values, $h-offset-index))
+  );
+ }" data-collapsed="@function _jigsass-bidi-shadow($values) { ... }"><code>@function _jigsass-bidi-shadow($values) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Helper for transforming direction-agnostic text/box-shadow values</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter</span>Name</th><th scope="col"><span class="visually-hidden">parameter</span>Description</th><th scope="col"><span class="visually-hidden">parameter</span>Type</th><th scope="col"><span class="visually-hidden">parameter</span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$values</code></th><td data-label="desc"><p>A space-separated list of box-shadow values, or</p></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden">none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>List</code> &mdash;<p>Transformed box shadow values</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-shadow"><code>_jigsass-bidi-shadow</code></a></li></ul></section></section></section><footer class="footer" role="contentinfo"><div class="container"><div class="footer__project-info project-info"><!-- Name and URL --><span class="project-info__name">Jigsass-tools-bidi</span><!-- Version --> <span class="project-info__version">- v0.0.0</span><!-- License --> <span class="project-info__license">, under MIT</span></div><a class="footer__watermark" href="http://sassdoc.com"><img src="assets/images/logo_light_inline.svg" alt="SassDoc Logo"></a></div></footer></article><script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script><script src="assets/js/main.min.js"></script></body></html>
