@@ -24,7 +24,7 @@
 /// @param {arglist} $keys... - A recursive chain of keys.
 /// @returns {boolean}
 @function jig-map-key-equals($value, $map, $keys...) {
-  @return _map-get-deep($map, $keys...) == $value;
+  @return _jig-map-get-deep($map, $keys...) == $value;
 }
 
 /// Check if a map's key is of a certain type
@@ -33,7 +33,7 @@
 /// @param {arglist} $keys... - A recursive chain of keys.
 /// @returns {boolean}
 @function jig-map-key-type-is($type, $map, $keys...) {
-  @return type-of(_map-get-deep($map, $keys...)) == $type;
+  @return type-of(_jig-map-get-deep($map, $keys...)) == $type;
 }
 
 
@@ -66,3 +66,5 @@
 
   @return $value;
 }
+
+@mixin jig-noop() { @content; }

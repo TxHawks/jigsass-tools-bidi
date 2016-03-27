@@ -157,6 +157,23 @@ $jigsass-direction: ltr !default;
 // Mixins
 // -------------------------------------
 
+/// Temporarily set the direction for the context of
+/// the mixin's execution.
+/// ---
+/// @param {String} $direction
+/// ---
+@mixin jigsass-bidi-direction($direction) {
+  // Locally cache current direction from global scope.
+  $_direction-cache: $jigsass-direction;
+
+  // Set temporary direction in global scope.
+  $jigsass-direction: $direction !global;
+
+  @content;
+
+  // Reset direction in global scope.
+  $jigsass-direction: $_direction-cache !global;
+}
 
 
 

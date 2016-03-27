@@ -980,4 +980,17 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+  describe('jigsass-bidi-directon [Mixin]', () => {
+    it('Locally changes direction', () => {
+      sassaby.includedMixin('jig-noop')
+        .calledWithBlock(
+          'before: $jigsass-direction;' +
+          '@include jigsass-bidi-direction(rtl) {' +
+            'during: $jigsass-direction;' +
+          '}' +
+          'after: $jigsass-direction;'
+        )
+        .equals('before: ltr; during: rtl; after: ltr;');
+    });
+  });
 });
