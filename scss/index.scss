@@ -36,6 +36,10 @@
 /// ---
 $jigsass-direction: ltr !default;
 
+/// Determines if `jigsass-bidi` will convert pixel values to `rem` by default when possible
+/// ---
+/// @type Boolean
+/// ---
 $jigsass-bidi-rem-default: if(
   global-variable-exists($jigsass-default-unit),
   $jigsass-default-unit == rem,
@@ -57,7 +61,7 @@ $jigsass-bidi-rem-default: if(
 /// @param {String} $side
 ///   The side to translate into `left` or `right`. Can be `start` or `end`.
 /// ---
-/// @retrun {String} - The translated value of `$side`. `left` or `right`
+/// @return {String} - The translated value of `$side`. `left` or `right`
 /// ---
 @function _jigsass-get-side($side) {
   @if (not index(start end, to-lower-case($side))) {
@@ -155,66 +159,60 @@ $jigsass-bidi-rem-default: if(
 // Mixins
 // -------------------------------------
 
-/// Temporarily set the direction for the context of
-/// the mixin's execution.
+/// Direction-agnostic styles
+///
+/// Ease the process of writing clean and maintainable bidirectional stylesheets by
+/// using a single mixin to handle transformation of all direction-related styles
+/// (values and/or properties) by interpreting directions as `start`\`end`
+/// instead of `left`\`right`.
+///
+/// Whether `start` is considered to be `left` or `right` depends on the direction
+/// set in `$jigsass-direction`.
+///
+/// **Caveats** (See Examples bellow):
+///   - The `background` shorthand is not supported. Set the `background-image`
+///     and `background-position` properties directly.
+///   - When multi-dimensional lists are passsed to to `$values` argument
+///     (e.g., to border-radius, box-shadow, text-shadow or background-position),
+///     They should be passed as space separated lists inside a comma-separated list.
+///   - The `X` argument of `backgrond-position` and `transform-origin` can be transformed
+///     only if set to `start`, `end` or a number in percentage (`%`).
+///     transforming non-relative widths requires knowledge of the container's dimensions.
 /// ---
-/// @param {String} $direction
-/// ---
-@mixin jigsass-bidi-direction($direction) {
-  // Locally cache current direction from global scope.
-  $_direction-cache: $jigsass-direction;
-
-  // Set temporary direction in global scope.
-  $jigsass-direction: $direction !global;
-
-  @content;
-
-  // Reset direction in global scope.
-  $jigsass-direction: $_direction-cache !global;
-}
-
-
 /// @param {String} $property
-///   Does not support the `background` shorthand.
-///   Use the `background-image` (for linear-gradients)
-///   or `background-position` properties directly.
 /// @param {String | Number | List | Color} $values
-///   When multidimensional lists are passed (e.g., to
-///   border-radius, box-shadow, text-shadow or background-position),
-///   They should be passed as space separated lists inside
-///   a comma-separated list.
-/// @param {String | List | Boolean} $bps (false)
+///   Values to process
+/// @param {String | List | Boolean} $bps [false]
 ///   list of breakpoints to output the converted values in.
 ///   `auto` iterates over the breakpoints defined in
 ///   the `rhythm-unit` key of the sizes palette
 ///   (from `jigsass-tools-typography`).
 ///   `all` iterates over all length breakpoints.
 ///   Only supports min-width media-queries.
-/// @param {Boolean} $rem
+/// @param {Boolean} $rem [$jigsass-bidi-rem-default]
 ///   Indicates if pixel values should be converted into rems
 /// ---
-/// @example
-///   // Direction (start to end)
+/// @example scss - Direction (start to end)
 ///   @include jigsass-bidi(diraction, ste); // -> ltr-mode: direction: ltr;
 ///                                          //    rtl-mode: direction: rtl;
 ///
-///   // Direction (end to start)
+/// @example scss - Direction (end to start)
 ///   @include jigsass-bidi(diraction, ets); // -> ltr-mode: direction: rtl;
 ///                                          //    rtl-mode: direction: ltr;
 ///
-///   // start/end property
+/// @example scss - start/end property
 ///   @include jigsass-bidi(margin-start, 6px); // -> ltr-mode: margin-left: 6px;
 ///                                             //    rtl-mode: margin-right: 6px;
 ///
-///   // start/end value
+/// @example scss - start/end value
 ///   @include jigsass-bidi(float, end); // -> ltr-mode: float: right;
 ///                                      //    rtl-mode: float: left;
 ///
-///   // List
+/// @example scss - List of numbers
 ///   @include jigsass-bidi(margin, 0 8px 6px 12px); // -> ltr-mode: margin: 0 8px 6px 12px;
 ///                                                  //    rtl-mode: margin: 0 12px 6px 8px;
 ///
-///   // List of lists
+/// @example scss - List of lists
 ///   @include jigsass-bidi(
 ///     border-radius,
 ///     (8px 12px 6px, 12px 14px)
@@ -264,6 +262,47 @@ $jigsass-bidi-rem-default: if(
 
     @include _jigsass-bidi($property, $values, $rem);
   }
+}
+
+
+/// Temporarily set the direction for the context of
+/// the mixin's execution.
+/// ---
+/// @param {String} $direction
+/// ---
+/// @example scss - scss input
+///   $jigsass-direction: ltr;
+///
+///   .ltr-component {
+///     @include jigsass-bidi(margin-start, 12px);
+///   }
+///
+///   .rtl-component {
+///     @include jigsass-bidi-direction(rtl) {
+///       @include jigsass-bidi(margin-start, 12px);
+///     }
+///   }
+///
+/// @example css - CSS output
+///   .ltr-component {
+///     margin-left: 12px;
+///   }
+///
+///   .rtl-component {
+///     margin-right: 12px;
+///   }
+/// ---
+@mixin jigsass-bidi-direction($direction) {
+  // Locally cache current direction from global scope.
+  $_direction-cache: $jigsass-direction;
+
+  // Set temporary direction in global scope.
+  $jigsass-direction: $direction !global;
+
+  @content;
+
+  // Reset direction in global scope.
+  $jigsass-direction: $_direction-cache !global;
 }
 
 
