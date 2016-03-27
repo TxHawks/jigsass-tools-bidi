@@ -1088,4 +1088,36 @@ describe('jigsass-tools-bidi', () => {
         .equals('before: ltr; during: rtl; after: ltr;');
     });
   });
+
+  describe('jigsass-bidi [Mixin]', () => {
+    it('Calls `_jigsass-bidi`', () => {
+      sassaby.includedMixin('jigsass-bidi')
+        .calledWithArgs('margin, 12px 0, false, false')
+        .calls('_jigsass-bidi(margin, 12px 0, false)');
+    });
+
+    it('Calls `jigsass-mq`', () => {
+      sassaby.includedMixin('jigsass-bidi')
+        .calledWithArgs('margin, 12px 0, large')
+        .createsMediaQuery('(min-width:64em)');
+    });
+
+    it('Calls `jigsass-mq` correctly when `mq` is `auto`', () => {
+      const sassaby = new Sassaby(file, { variables: { 'jigsass-sizes': '(rhythm-unit:(small: 12px))', } })
+
+      sassaby.includedMixin('jigsass-bidi')
+        .calledWithArgs('margin, 12px 0, auto')
+        .createsMediaQuery('(min-width: 30em)');
+    });
+
+    it('Calls `jigsass-mq` correctly when `mq` is `all`', () => {
+      const sassaby = new Sassaby(file, {
+        variables: { 'jigsass-breakpoints': '(lengths:(xl: 1600px))', }
+      });
+
+      sassaby.includedMixin('jigsass-bidi')
+        .calledWithArgs('margin, 12px 0, all')
+        .createsMediaQuery('(min-width: 100em)');
+    });
+  });
 });

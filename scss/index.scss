@@ -17,14 +17,6 @@
 // Dependencies
 // -------------------------------------
 
-@if (not mixin-exists(jigsass-rem)) {
-  @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography`. Please import it.'
-}
-
-@if (not global-variable-exists(jigsass-default-unit)) {
-  @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography`. Please import it.'
-}
-
 @if (not function-exists(jigsass-str-replace)) {
   @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-strings`. Please import it.'
 }
@@ -43,6 +35,12 @@
 /// @type String
 /// ---
 $jigsass-direction: ltr !default;
+
+$jigsass-bidi-rem-default: if(
+  global-variable-exists($jigsass-default-unit),
+  $jigsass-default-unit == rem,
+  false
+) !default;
 
 
 
@@ -173,6 +171,99 @@ $jigsass-direction: ltr !default;
 
   // Reset direction in global scope.
   $jigsass-direction: $_direction-cache !global;
+}
+
+
+/// @param {String} $property
+///   Does not support the `background` shorthand.
+///   Use the `background-image` (for linear-gradients)
+///   or `background-position` properties directly.
+/// @param {String | Number | List | Color} $values
+///   When multidimensional lists are passed (e.g., to
+///   border-radius, box-shadow, text-shadow or background-position),
+///   They should be passed as space separated lists inside
+///   a comma-separated list.
+/// @param {String | List | Boolean} $bps (false)
+///   list of breakpoints to output the converted values in.
+///   `auto` iterates over the breakpoints defined in
+///   the `rhythm-unit` key of the sizes palette
+///   (from `jigsass-tools-typography`).
+///   `all` iterates over all length breakpoints.
+///   Only supports min-width media-queries.
+/// @param {Boolean} $rem
+///   Indicates if pixel values should be converted into rems
+/// ---
+/// @example
+///   // Direction (start to end)
+///   @include jigsass-bidi(diraction, ste); // -> ltr-mode: direction: ltr;
+///                                          //    rtl-mode: direction: rtl;
+///
+///   // Direction (end to start)
+///   @include jigsass-bidi(diraction, ets); // -> ltr-mode: direction: rtl;
+///                                          //    rtl-mode: direction: ltr;
+///
+///   // start/end property
+///   @include jigsass-bidi(margin-start, 6px); // -> ltr-mode: margin-left: 6px;
+///                                             //    rtl-mode: margin-right: 6px;
+///
+///   // start/end value
+///   @include jigsass-bidi(float, end); // -> ltr-mode: float: right;
+///                                      //    rtl-mode: float: left;
+///
+///   // List
+///   @include jigsass-bidi(margin, 0 8px 6px 12px); // -> ltr-mode: margin: 0 8px 6px 12px;
+///                                                  //    rtl-mode: margin: 0 12px 6px 8px;
+///
+///   // List of lists
+///   @include jigsass-bidi(
+///     border-radius,
+///     (8px 12px 6px, 12px 14px)
+///    ); // -> ltr-mode: border-radius: 8px 12px 16px / 12px 14px;
+///       // -> rtl-mode: border-radius: 12px 8px 12px 16px / 14px 14px;
+/// ---
+@mixin jigsass-bidi($property, $values, $bps: false, $rem: $jigsass-bidi-rem-default) {
+  @if (not index(ltr rtl, to-lower-case($jigsass-direction))) {
+    @error 'jigsass-bidi: `$jigsass-direction` must be either `ltr` or `rtl`, ' +
+      'but it is set to #{$jigsass-direction} (When setting #{$property}, #{$values}).';
+  }
+
+  // Dependencies
+  @if ($bps == auto and not function-exists(_jigsass-merge-sizes)) {
+    @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` for setting ' +
+      'rhythm-unit breakpoints. Please import it.'
+  }
+  @if ($rem and not mixin-exists(jigsass-rem)) {
+    @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` ' +
+      'for converting pixel values to rem. Please import it.'
+  }
+
+  @if ($bps and mixin-exists(jigsass-mq)) {
+    $_bps: if(
+      $bps == auto,
+      map-keys(map-get(_jigsass-merge-sizes(), rhythm-unit)),
+      if(
+        $bps == all,
+        map-keys(map-get($jigsass-breakpoints, lengths)),
+        $bps
+      )
+    );
+
+    @each $bp in $_bps {
+      @include jigsass-mq($bp) {
+        @include _jigsass-bidi($property, $values, $rem);
+      }
+    }
+  }
+
+  // Generate in current active breakpoint
+  @else {
+    @if ($bps and not mixin-exists(jigsass-mq)) {
+      @warn 'jigsass-rem: Can\'t generate media queries - the `jigsass-mq` mixin does not exist.' +
+        ' Generating output outside a media query';
+    }
+
+    @include _jigsass-bidi($property, $values, $rem);
+  }
 }
 
 
