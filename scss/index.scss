@@ -183,6 +183,77 @@ $jigsass-direction: ltr !default;
 // Helper Mixins
 // -------------------------------------
 
+/// A utility mixin to call the correct transformer mixins
+/// based on the property or values that were passed.
+/// ---
+/// @access private
+/// ---
+@mixin _jigsass-bidi($property, $values, $rem) {
+  // Simple string transformations
+  @if (
+    (type-of($values) == string and index(start end, $values)) or
+    str-index($property, start) or
+    str-index($property, end)
+  ) {
+    @include _jigsass-bidi-simple($property, $values, $rem);
+  }
+  // Direction
+  @else if ($property == direction) {
+    @include _jigsass-bidi-direction($values);
+  }
+
+  // Border radius
+  @else if ($property == border-radius) {
+    @include _jigsass-bidi-bdrs($values, $rem);
+  }
+
+  // background-image
+  @else if ($property == background-image) {
+    @include _jigsass-bidi-bgi($values);
+  }
+
+  // background-position
+  @else if ($property == background-position) {
+    @include _jigsass-bidi-bgp($values, $rem);
+  }
+
+  // box/test-shadow
+  @else if (index(box-shadow text-shadow, $property)) {
+    @include _jigsass-bidi-shadow($property, $values, $rem);
+  }
+
+  // transform
+  @else if ($property == transform) {
+    @include _jigsass-bidi-transform($values, $rem);
+  }
+
+  // transform-origin
+  @else if ($property == transform-origin) {
+    @include _jigsass-bidi-transform-origin($values, $rem);
+  }
+
+  @else {
+    // List of numbers
+    $_list-of-numbers: true;
+    @if (type-of($values) == list) {
+
+      @each $value in $values {
+        $_list-of-numbers: $_list-of-numbers and type-of($value) == number;
+      }
+    }
+
+    @if ($_list-of-numbers and type-of($values) == list) {
+      @include _jigsass-bidi-sides($property, $values, $rem);
+    }
+
+    // Non direction related, just leave as is.
+    @else {
+      @if ($rem) { @include jigsass-rem($property, $values); }
+
+      @else { #{$property}: $values; }
+    }
+  }
+}
 
 
 /// Direction agnostic `direction`
@@ -475,6 +546,16 @@ $jigsass-direction: ltr !default;
 }
 
 
+/// Direction agnostic transform-origin
+///
+/// transform transform-origin as if it were written start-to-end instead
+/// of right-to-left.
+/// **caveat:** Length values can only be transformed if they
+/// are in percentage, because transforming non-relative values
+/// requires knowledge of the container's dimensions.
+/// ---
+/// @access private
+/// ---
 @mixin _jigsass-bidi-transform-origin($values, $rem) {
   $_rtl: to-lower-case($jigsass-direction) == rtl;
 
@@ -493,7 +574,6 @@ $jigsass-direction: ltr !default;
       )
     )
   );
-  // $y-index: if(index(bottom top, nth($values, 1)), 1, if($second, 2, null));
 
   @if ($x-index) {
     $x: nth($values, $x-index);
@@ -622,6 +702,6 @@ $jigsass-direction: ltr !default;
 
     @if ($rem) { @include jigsass-rem(border-radius, $ordered-values); }
 
-    @else {  border-radius: $ordered-values; }
+    @else { border-radius: $ordered-values; }
   }
 }

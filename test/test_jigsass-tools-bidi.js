@@ -980,6 +980,101 @@ describe('jigsass-tools-bidi', () => {
       });
     });
   });
+
+  describe('_jigsass-bidi [Mixin]', () => {
+    it('Calls `_jigsass-bidi-simple` when property has `start` in it', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('margin-start, 20px, false')
+        .calls('_jigsass-bidi-simple(margin-start, 20px, false)');
+    });
+
+    it('Calls `_jigsass-bidi-simple` when property has `end` in it', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('padding-end, 20px, false')
+        .calls('_jigsass-bidi-simple(padding-end, 20px, false)');
+    });
+
+    it('Calls `_jigsass-bidi-simple` when values is `start`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('float, start, false')
+        .calls('_jigsass-bidi-simple(float, start, false)');
+    });
+
+    it('Calls `_jigsass-bidi-simple` when values is `end`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('clear, end, false')
+        .calls('_jigsass-bidi-simple(clear, end, false)');
+    });
+
+    it('Calls `_jigsass-bidi-direction` when property is `direction`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('direction, ste, false')
+        .calls('_jigsass-bidi-direction(ste)');
+    });
+
+    it('Calls `_jigsass-bidi-direction` when property is `direction`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('direction, ste, false')
+        .calls('_jigsass-bidi-direction(ste)');
+    });
+
+    it('Calls `_jigsass-bidi-bdrs` when property is `border-radius`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('border-radius, (10px 12, 8px 7px), false')
+        .calls('_jigsass-bidi-bdrs((10px 12, 8px 7px), false)');
+    });
+
+    it('Calls `_jigsass-bidi-bgi` when property is `background-image`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('background-image, linear-gradient(to start, red, black), false')
+        .calls('_jigsass-bidi-bgi(linear-gradient(to start, red, black))');
+    });
+
+    it('Calls `_jigsass-bidi-bgp` when property is `background-position`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('background-position, end 25%, false')
+        .calls('_jigsass-bidi-bgp(end 25%, false)');
+    });
+
+    it('Calls `_jigsass-bidi-shadow` when property is `box-shadow`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('box-shadow, inset 12px 5px 10px 8px #ccc, false')
+        .calls('_jigsass-bidi-shadow(box-shadow, inset 12px 5px 10px 8px #ccc, false)');
+    });
+
+    it('Calls `_jigsass-bidi-shadow` when property is `text-shadow`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('text-shadow, 12px 5px 8px #ccc, false')
+        .calls('_jigsass-bidi-shadow(text-shadow, 12px 5px 8px #ccc, false)');
+    });
+
+    it('Calls `_jigsass-bidi-transform` when property is `transfrom`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('transform, rotate(10deg) translate3d(12px, 0, 0), false')
+        .calls('_jigsass-bidi-transform(rotate(10deg) translate3d(12px, 0, 0), false)');
+    });
+
+    it('Calls `_jigsass-bidi-transform` when property is `transfrom-origin`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('transform-origin, start 75%, false')
+        .calls('_jigsass-bidi-transform-origin(start 75%, false)');
+    });
+
+    it('Calls `_jigsass-bidi-sides` when property is a list of numbers and' +
+       'property is not one of the above properties', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('margin, 12px 0, false')
+        .calls('_jigsass-bidi-sides(margin, 12px 0, false)');
+    });
+
+    it('Calls `jigsass-rem` directly when no bidi-related property or values are passed ' +
+       'and `$rem` is set to `true`', () => {
+      sassaby.includedMixin('_jigsass-bidi')
+        .calledWithArgs('font-size, 12px, true')
+        .calls('jigsass-rem(font-size, 12px)');
+    });
+  });
+
   describe('jigsass-bidi-directon [Mixin]', () => {
     it('Locally changes direction', () => {
       sassaby.includedMixin('jig-noop')
