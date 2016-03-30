@@ -496,7 +496,7 @@
  }" data-collapsed="@function _jigsass-bidi-bgp() { ... }"><code>@function _jigsass-bidi-bgp() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Utility function to transform background-position values in a <code>start-to-end</code>, direction-agnostic manner</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>jigsass-bidi: horizontal position must be passed before vertical</p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#variable-jigsass-direction"><code>jigsass-direction</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-_jigsass-bidi-bgp"><code>_jigsass-bidi-bgp</code></a></li></ul></section><section class="main__item container item" id="function-_jigsass-bidi-transform"><h3 class="item__heading"><span class="item__access">[private]</span> <a class="item__name" href="#function-_jigsass-bidi-transform">_jigsass-bidi-transform</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function _jigsass-bidi-transform($value) { 
   $unit: unit($value);
 
-  @if ($unit == px) { @return $value * -1; }
+  @if (index(&#39;px&#39; &#39;%&#39;, $unit)) { @return $value * -1; }
   @if ($unit == deg) { @return abs($value - 360); }
   @if ($unit == turn) { @return abs($value - 1); }
   @if ($unit == grad) { @return abs($value - 400); }
