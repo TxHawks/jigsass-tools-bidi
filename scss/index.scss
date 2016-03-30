@@ -144,7 +144,7 @@ $jigsass-bidi-rem-default: if(
 @function _jigsass-bidi-transform($value) {
   $unit: unit($value);
 
-  @if ($unit == px) { @return $value * -1; }
+  @if (index('px' '%', $unit)) { @return $value * -1; }
   @if ($unit == deg) { @return abs($value - 360); }
   @if ($unit == turn) { @return abs($value - 1); }
   @if ($unit == grad) { @return abs($value - 400); }

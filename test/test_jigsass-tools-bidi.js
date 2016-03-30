@@ -804,8 +804,8 @@ describe('jigsass-tools-bidi', () => {
 
       it('Transform value in functions that support a single value', () => {
         sassaby.includedMixin('_jigsass-bidi-transform')
-          .calledWithArgs('translateX(5px), false')
-          .equals('transform:translateX(-5px)');
+          .calledWithArgs('translateX(-50%), false')
+          .equals('transform:translateX(50%)');
       });
 
       it('Transform single values in functions that support multiple values', () => {
