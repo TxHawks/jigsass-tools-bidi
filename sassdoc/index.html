@@ -12,7 +12,7 @@
   }
 
   // Dependencies
-  @if ($bps == auto and not function-exists(_jigsass-merge-sizes)) {
+  @if ($bps == auto and not function-exists(jigsass-merge-sizes)) {
     @error &#39;`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` for setting &#39; +
       &#39;rhythm-unit breakpoints. Please import it.&#39;
   }
@@ -24,7 +24,7 @@
   @if ($bps and mixin-exists(jigsass-mq)) {
     $_bps: if(
       $bps == auto,
-      map-keys(map-get(_jigsass-merge-sizes(), rhythm-unit)),
+      map-keys(map-get(jigsass-merge-sizes(), rhythm-unit)),
       if(
         $bps == all,
         map-keys(map-get($jigsass-breakpoints, lengths)),
