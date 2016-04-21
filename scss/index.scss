@@ -18,7 +18,7 @@
 // -------------------------------------
 
 @if (not function-exists(jigsass-str-replace)) {
-  @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-strings`. Please import it.'
+  @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-strings`. Please import it.';
 }
 
 
@@ -108,7 +108,7 @@ $jigsass-bidi-rem-default: if(
     @if (index(start end, $_value)) {
       @if ($i != 1) {
         @error 'jigsass-bidi: horizontal position must be passed before vertical ' +
-          '(When trying to set #{$position}).'
+          '(When trying to set #{$position}).';
       }
       $_sides: (start: if($_rtl, right, left), end: if($_rtl, left, right));
 
@@ -228,11 +228,11 @@ $jigsass-bidi-rem-default: if(
   // Dependencies
   @if ($bps == auto and not function-exists(jigsass-merge-sizes)) {
     @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` for setting ' +
-      'rhythm-unit breakpoints. Please import it.'
+      'rhythm-unit breakpoints. Please import it.';
   }
   @if ($rem and not mixin-exists(jigsass-rem)) {
     @error '`jigsass-tools-bidi` has a dependency on `jigsass-tools-typography` ' +
-      'for converting pixel values to rem. Please import it.'
+      'for converting pixel values to rem. Please import it.';
   }
 
   @if ($bps and mixin-exists(jigsass-mq)) {

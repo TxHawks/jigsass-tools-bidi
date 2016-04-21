@@ -14,7 +14,7 @@ npm i -S jigsass-tools-bidi
 ## Usage
 
 ```scss
-@import 'path/to/jigsass-tools-selectors/scss/index';
+@import 'path/to/jigsass-tools-bidi/scss/index';
 ```
 
 Managing bi-directionality in CSS can be an annoying, time consuming and error-prone task.
