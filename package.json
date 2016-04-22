@@ -55,7 +55,7 @@
     "gulp-mocha": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.1.0",
-    "gulp-sass": "^2.3.0",
+    "gulp-sass": "^2.3.1",
     "gulp-util": "^3.0.7",
     "mdcss": "^1.5.1",
     "mdcss-theme-jigsass": "^0.2.10",
@@ -65,7 +65,7 @@
     "sassaby": "^2.1.1",
     "sassdoc": "^2.1.20",
     "sassdoc-theme-jigsass": "^0.2.15",
-    "stylelint": "^6.0.3"
+    "stylelint": "^6.1.0"
   },
   "description": "Painless bidirectional style authoring",
   "license": "MIT"
